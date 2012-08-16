@@ -1,0 +1,22 @@
+% File di esempio per la classe 'arstexnica'
+% Sample file for 'arstexnica.cls'.
+\documentclass{arstexnica}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, italian]{babel}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{natbib}
+
+\input{\jobname-package}
+
+\input{\jobname-command}
+
+\begin{document}
+
+\include{\jobname-article}
+
+\end{document}

@@ -1,0 +1,61 @@
+This is the README that comes along the ArsTeXnica Author's kit version 2.1.
+It is released under the LPPL 1.3c or later.
+Copyright (c) 2011 Gianluca Pignalberi and GuIT
+----------------------------------------------------------------------------
+
+Questo kit per gli autori di ArsTeXnica contiene i seguenti file:
+
+* arsacro.sty (comandi per comporre nomi e loghi relativi a TeX);
+* arstexnica.bst (stile bibliografico; personalizzazione di natbib);
+* arstexnica.cls (classe della rivista);
+* guit.sty (comandi per comporre nomi e loghi relativi al GuIT e ArsTeXnica);
+* name-article.tex (vedi sotto);
+* name-command.tex (vedi sotto);
+* name-package.tex (vedi sotto);
+* name.tex (vedi sotto);
+* README (traduzione inglese di questo file );
+* README_it (questo file).
+
+I primi quattro file sono necessari (arstexnica.* sono fondamentali), e i file
+name*tex sono quelli che l'autore modificherà in base alle proprie esigenze.
+
+* <name>.tex: è il documento master, in cui ci sono il preambolo e i package
+	necessari alla compilazione degli articoli per ArsTeXnica. Non dovreste
+	modificare niente, visto che ora inputenc carica di base l'opzione 
+	utf8x. L'unica modifica riguarda il nome del file, che ora deve essere
+	personalizzato;
+
+* <name>-article.tex: qui va solo il testo dell'articolo; nessuna inclusione di
+	pacchetti, nessun comando. Attenersi alle specifiche richieste ci
+	aiuta a mettere a punto lo script di raccolta degli articoli e 
+	generazione automatica del numero in lavorazione. Cambiate <name> in
+	base a quello del master;
+
+* <name>-package.tex: mettete qui i vari pacchetti che caricherete. È 
+	consigliabile scrivere qui le eventuali personalizzazioni del pacchetto
+	listings. Al solito, <name> prende quello del master;
+
+* <name>-command.tex: qui vanno scritti tutti e soli i comandi personali usati 
+	nell'articolo. Due consigli: non scrivete un comando se non è
+	strettamente necessario. Sovente si trova lo stesso comando (magari con
+	lo stesso nome) nei pacchetti già disponibili; il fatto che è stato
+	testato da molti utenti in molte situazioni lo rende più stabile.
+	Diversi autori tendono a usare gli stessi nomi per i loro comandi (ad
+	esempio, \progname); questo porta a errori di compilazione, o a 
+	inconsistenza dei risultati. Prendete l'abitudine di personalizzare i 
+	vostri comandi, per esempio includendo nel nome del comando le vostre 
+	iniziali maiuscole: ad esempio, \GPprogname potrebbe essere il nome
+	della mia versione del comando. Questo non azzera, ma riduce 
+	moltissimo, la probabilità di conflitti tra i nomi dei comandi definiti
+	dai diversi autori. 
+
+I pacchetti e la classe necessari sono:
+
+* arstexnica.cls: è la classe usata per comporre ArsTeXnica e i suoi articoli;
+
+* arstexnica.bst: file dello stile bibliografico;
+
+* arsacro.sty: contiene le definizioni dei più diffusi nomi dei programmi 
+	correlati a TeX;
+
+* guit.sty: contiene i comandi per comporre i logo di ArsTeXnica e del GuIT.

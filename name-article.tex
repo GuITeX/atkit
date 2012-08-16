@@ -1,0 +1,61 @@
+% In questo file scrivete solo il vostro articolo. Non mettete comandi o 
+% includete pacchetti: ci sono file dedicati a ciò.
+% L'articolo deve essere interamente racchiuso all'interno
+% dell'ambiente 'article'.
+
+% Put in this file your paper only. Don't put in it commands nor include
+% packages: there are files for those purposes.
+% The paper must be enclosed within the 'article' environment.
+
+\begin{article}
+\selectlanguage{italian}% Articoli in italiano.
+%\selectlanguage{english}% Papers in english.
+
+\title[Titolo breve-Short title]{Titolo Lungo-Long title}
+
+% Ripetere le informazioni per ciascun autore.
+% Repeat info for each author.
+\author{Autore (Nome Cognome)/Author (Name Surname)}
+\address{Indirizzo o affiliazione-Address or affiliation}
+\netaddress{Author's email address}
+
+\maketitle
+
+\begin{abstract} % Write here the abstract in the main paper's language
+
+\end{abstract}
+
+\selectlanguage{<seconda lingua>} % Second language
+\begin{abstract}
+
+\end{abstract}
+\selectlanguage{<prima lingua>} % Main text in main language
+
+% La classe mette a disposizione dell'autore i seguenti comandi:
+% The class provides us with the following commands:
+% \cmdname{command} -> \command
+% \meta{arg} -> <arg>
+% \clsname{class}
+% \pkgname{package}
+% \envname{environment}
+% \optname{option}
+
+% Figure e tabelle devono, di preferenza, essere incluse in un
+% ambiente flottante e munite di didascalia. Eventuali figure esterne
+% devono essere inviate insieme al file .tex, in un formato
+% compatibile con pdftex (PDF, JPEG, PNG).
+% Figures and tables should be enclosed in a floating environment, and
+% come along with a caption.
+% External figures must be sent along with the .tex file, in a
+% format suitable to be compiled with pdftex (PDF, JPEG, PNG).
+
+
+% Bibliografia: l'autore deve accludere il file .bib (preferibilmente) o il
+% .bbl contenente la % bibliografia relativa all'articolo.
+% Bibliography: authors must include paper's bibliography (.bib, possibly, or 
+% .bbl) files.
+
+\bibliographystyle{arstexnica}
+\bibliography{<file bibliografia>}
+
+\end{article}
