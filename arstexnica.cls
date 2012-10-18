@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{arstexnica}[2012/04/20 v0.7 Document class for Ars TeXnica]
+\ProvidesClass{arstexnica}[2012/10/18 v0.7.1 Document class for Ars TeXnica]
 \RequirePackage{guit}
 \RequirePackage{currfile}
 \RequirePackage{arsacro}
@@ -396,7 +396,7 @@
 }
 \newcounter{article}
 \newenvironment{article}{%
-  \@openarticle}{\@closearticle}
+  \@openarticle}{\@closearticle\clearpage}
 \newcommand{\theHarticle}{\arabic{article}}
 
 \def\@paperhead{\ATname\ N\textordmasculine\ 0, Dicembre 2099}
