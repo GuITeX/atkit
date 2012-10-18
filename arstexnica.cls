@@ -1,6 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{arstexnica}[2011/09/26 v0.6.2 Document class for Ars TeXnica]
+\ProvidesClass{arstexnica}[2012/04/20 v0.7 Document class for Ars TeXnica]
 \RequirePackage{guit}
+\RequirePackage{currfile}
 \RequirePackage{arsacro}
 \DeclareOption{draft}{%
   \PassOptionsToClass{\CurrentOption}{article}
@@ -12,7 +13,7 @@
   \def\@pjp{paper}
   \AtEndOfClass{%
     \let\tableofcontents\relax
-    \def\@openarticle{}
+    \def\@openarticle{\openarticlehook}
     \def\@closearticle{\@makesig}
   }
 }
@@ -50,6 +51,7 @@
     \newcommand*\l@title{\@dottedtocline{0}{0pt}{0pt}}
     \setcounter{tocdepth}{0}
     \def\@openarticle{%
+      \openarticlehook
       \nobalance
       \refstepcounter{article}
       \@addtoreset{section}{article}
@@ -59,18 +61,29 @@
       \@addtoreset{footnote}{article}
       \@addtoreset{author}{article}
       \edef\theauthorlist{}
+      \edef\AT@authors@bibentry{}
       \renewcommand\thesection{\arabic{section}}
       \setlength\sigindent{.25\columnwidth}
+      \edef\AT@init@page{\thepage}
+      \immediate\write\AT@articlepath{\currfiledir\currfilebase}
     }
-    \def\@closearticle{\@makesig}
+    \def\@closearticle{%
+      \@makesig
+      \edef\AT@end@page{\thepage}
+      \AT@write@bibentry
+    }
     \InputIfFileExists{\jobname.cfg}{%
       \@cfgfound}{\@cfgnotfound}
   }
   \AtBeginDocument{
     \openout\AT@lst=artlist.lst
+    \openout\AT@articlepath=articlepath.lst
     \RequirePackage{arstestata}
   }
-  \AtEndDocument{\closeout\AT@lst}
+  \AtEndDocument{%
+    \closeout\AT@lst
+    \closeout\AT@articlepath
+  }
 }
 \DeclareOption{standalone}{%
   \AtEndOfClass{%
@@ -93,8 +106,12 @@
    bindingoffset=3mm,
    columnsep=15pt
 }
+\newwrite\@bibentry
+\newwrite\@abstractout
+\newwrite\AT@articlepath
 \newif\if@fvrbex
 \newif\if@hyperref
+\def\openarticlehook{}
 \def\@part[#1]#2{%
     \ifnum \c@secnumdepth >\m@ne
       \refstepcounter{part}%
@@ -245,14 +262,19 @@
   \renewcommand{\thanksgap}[1]{}
   \protected@xdef\theauthorlist{%
     \theauthorlist\ifnum\c@author=\@ne\else,\ \fi#1}
+  \protected@xdef\AT@authors@bibentry{%
+    \AT@authors@bibentry\ifnum\c@author=\@ne\else\space and\space \fi#1}
   \endgroup
 }
+\def\AT@makekey@bibentry#1#2#3#4#5#6#7#8#9\@empty{\def\AT@authorinkey@bibentry{#1#2#3#4#5#6#7#8}}
 \renewcommand{\author}[1]{%
   \stepcounter{author}
+  \ifnum\c@author=1\AT@makekey@bibentry#1\null\null\null\null\null\null\@empty\fi
   \expandafter\gdef\csname author@\Roman{author}\endcsname{#1}
   \addto@theauthorlist{#1}
 }
 \edef\theauthorlist{}
+\edef\AT@authors@bibentry{}
 \def\@authorlist{%
   \@tempcntb\@ne
   \@whilenum\c@author>\@tempcntb\do{%
@@ -297,7 +319,7 @@
   \large
   \list{}{\parsep=0pt \let\makelabel\ATindexlabel \labelsep=1em \listparindent=2.5em}
   \makeatletter
-  \input{artlist.lst}%
+  \InputIfFileExists{artlist.lst}{}{}%
   \makeatother
   \endlist
   \end{center}
@@ -452,6 +474,32 @@
     \parindent 1em%
     \@thefnmark.\kern1.5mm#1}
 
+\def\AT@padded@startpage{%
+  \ifnum\AT@init@page>99\else\ifnum\c@page>9 0\thepage\else00\thepage\fi\fi}
+\begingroup
+  \catcode`\[ = 1\relax
+  \catcode`\] = 2\relax
+  \catcode`\{ = 12\relax
+  \catcode`\} = 12 \relax
+  \gdef\AT@open@bibentry[@Article{at:\AT@year-\AT@number-\AT@padded@startpage-\AT@authorinkey@bibentry,]
+  \gdef\AT@close@bibentry[}]
+\endgroup
+\def\AT@indent@bibentry{\space\space}
+\def\AT@write@bibentry{%
+  \immediate\openout\@bibentry \currfiledir\currfilebase.bib
+  \protected@write\@bibentry{}{\AT@open@bibentry}
+  \protected@write\@bibentry{}{\AT@indent@bibentry author = {\AT@authors@bibentry},}
+  \protected@write\@bibentry{}{\AT@indent@bibentry title = {\@title},}
+  \protected@write\@bibentry{}{\AT@indent@bibentry journal = {Ars\TeX nica},}
+  \protected@write\@bibentry{}{\AT@indent@bibentry year = \AT@year,}
+  \protected@write\@bibentry{}{\AT@indent@bibentry number = \AT@number,}
+  \protected@write\@bibentry{}{\AT@indent@bibentry pages = {\AT@init@page-\AT@end@page},}
+  \protected@write\@bibentry{}{\AT@indent@bibentry month = {\AT@month},}
+  \protected@write\@bibentry{}{\AT@indent@bibentry language = {\languagename},}
+  \protected@write\@bibentry{}{\AT@indent@bibentry issn = {1828-2350},}
+  \protected@write\@bibentry{}{\AT@close@bibentry}
+}
+
 %% thanks to C. Beccari
 \def\manualbalance{%
  \ifvmode
@@ -462,7 +510,6 @@
    \vadjust{\vspace{\z@\@plus1fill}\penalty -\@M}%
    \@esphack
  \fi}
-
 
 \frenchspacing
 \endinput
