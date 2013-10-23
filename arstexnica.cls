@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{arstexnica}[2012/10/18 v0.7.1 Document class for Ars TeXnica]
+\ProvidesClass{arstexnica}[2012/04/20 v0.7 Document class for Ars TeXnica]
 \RequirePackage{guit}
 \RequirePackage{currfile}
 \RequirePackage{arsacro}
@@ -396,7 +396,7 @@
 }
 \newcounter{article}
 \newenvironment{article}{%
-  \@openarticle}{\@closearticle\clearpage}
+  \@openarticle}{\@closearticle}
 \newcommand{\theHarticle}{\arabic{article}}
 
 \def\@paperhead{\ATname\ N\textordmasculine\ 0, Dicembre 2099}
@@ -500,6 +500,49 @@
   \protected@write\@bibentry{}{\AT@close@bibentry}
 }
 
+\newcommand{\lstrestoredefault}{
+  \lstset{abovecaptionskip=\smallskipamount,
+      aboveskip=\medskipamount,
+      backgroundcolor={},
+      basicstyle={},
+      belowcaptionskip=\smallskipamount,
+      belowskip=\medskipamount,
+      breakautoindent=true,
+      breaklines=false,
+      captionpos=t,
+      columns=[c]fixed,
+      commentstyle=\itshape,
+%      emph=,
+      emphstyle=\bfseries,
+%      emph={[2]},
+      emphstyle={[2]\bfseries},
+      emptylines=2,
+      escapeinside={},
+      extendedchars=true,
+      firstline=1,
+      float=tbp,
+      frame=none,
+      frameround=ffff,
+      gobble=0,
+      identifierstyle={},
+      keepspaces=false,
+      keywordstyle=\bfseries,
+      language={},
+      lineskip=0pt,
+      literate={},
+      mathescape=false,
+      morekeywords={},
+      numbers=none,
+      numbersep=10pt,
+      numberstyle={},
+      prebreak={},
+      showspaces=false,
+      showstringspaces=true,
+      stepnumber=1,
+      stringstyle={},
+      texcsstyle=*{},
+      xleftmargin=0pt,
+      xrightmargin=0pt}}
 %% thanks to C. Beccari
 \def\manualbalance{%
  \ifvmode
