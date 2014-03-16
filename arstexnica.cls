@@ -267,10 +267,12 @@
   \endgroup
 }
 \def\AT@makekey@bibentry#1#2#3#4#5#6#7#8#9\@empty{\def\AT@authorinkey@bibentry{#1#2#3#4#5#6#7#8}}
+\let\originaltextlatin\textlatin
+\let\textlatin\relax
 \renewcommand{\author}[1]{%
   \stepcounter{author}
   \ifnum\c@author=1\AT@makekey@bibentry#1\null\null\null\null\null\null\@empty\fi
-  \expandafter\gdef\csname author@\Roman{author}\endcsname{#1}
+  \expandafter\gdef\csname author@\romannumeral\c@author\endcsname{#1}
   \addto@theauthorlist{#1}
 }
 \edef\theauthorlist{}
@@ -278,17 +280,17 @@
 \def\@authorlist{%
   \@tempcntb\@ne
   \@whilenum\c@author>\@tempcntb\do{%
-    {\@nameuse{author@\@Roman{\@tempcntb}}, }%
+    {\@nameuse{author@\romannumeral\@tempcntb}, }%
     \advance\@tempcntb\@ne
   }%
-  \@nameuse{author@\@Roman{\@tempcntb}}
+  \@nameuse{author@\romannumeral\@tempcntb}
 }
 
 \newcommand{\address}[1]{%
-  \expandafter\gdef\csname address@\Roman{author}\endcsname{#1}
+  \expandafter\gdef\csname address@\romannumeral\c@author\endcsname{#1}
 }
 \newcommand{\netaddress}[1]{%
-  \expandafter\gdef\csname netaddress@\Roman{author}\endcsname{#1}
+  \expandafter\gdef\csname netaddress@\romannumeral\c@author\endcsname{#1}
 }
 \newcounter{title}
 \setcounter{title}{0}
@@ -367,9 +369,9 @@
   \@whilenum\c@author>\@tempcntb\do{%
     \advance\@tempcntb\@ne
     \item[\SigSymbol]
-    \@usenempty{author@\@Roman{\@tempcntb}}\par\nobreak
-    \@usenempty{address@\@Roman{\@tempcntb}}\par\nobreak
-    \texttt{\@usenempty{netaddress@\@Roman{\@tempcntb}}}
+    \@usenempty{author@\romannumeral\@tempcntb}\par\nobreak
+    \@usenempty{address@\romannumeral\@tempcntb}\par\nobreak
+    \texttt{\@usenempty{netaddress@\romannumeral\@tempcntb}}
     }
   \endlist
   \gdef\@thanks{}
