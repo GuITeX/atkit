@@ -1,11 +1,12 @@
-This is the README that comes along the ArsTeXnica Author's kit version 2.1.
+This is the README that comes along the ArsTeXnica Author's kit version 2.2.2.
 It is released under the LPPL 1.3c or later.
-Copyright (c) 2011 Gianluca Pignalberi and GuIT
+Copyright (c) 2011-2015 Gianluca Pignalberi and GuIT
 ----------------------------------------------------------------------------
 
 This Author's Kit for ArsTeXnica contains the following files:
 
 * arsacro.sty (commands to typeset TeX-related names and logos);
+* arstexnica.bib (bibliographic database);
 * arstexnica.bst (bibliography style; natbib customization);
 * arstexnica.cls (journal class);
 * guit.sty (commands to typeset GuIT and ArsTeXnica-related names and logos);
@@ -16,7 +17,7 @@ This Author's Kit for ArsTeXnica contains the following files:
 * README (this file);
 * README_it (Italian translation of this file).
 
-The first four file are necessary (arstexnica.* are fundamental), and the 
+The first five files are necessary (arstexnica.* are fundamental), and the 
 name*tex files are those the author will modify according to her needs.
 
 * <name>.tex: this is the master document, where preamble and the packages 
