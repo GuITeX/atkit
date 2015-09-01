@@ -3,6 +3,23 @@
 \RequirePackage{guit}
 \RequirePackage{currfile}
 \RequirePackage{arsacro}
+\RequirePackage{iftex}
+\RequirePackage{etoolbox}
+\newcommand\ArsTeXnicaError{\ClassError{arstexnica}{%
+     \MessageBreak
+     ***********************************************\MessageBreak
+     Programma di compilazione non valido           \MessageBreak
+     Invalid typesetting program                    \MessageBreak
+     Premi H per maggiori informazioni              \MessageBreak
+     Press H for further help                       \MessageBreak
+      ***********************************************
+  }{\MessageBreak
+     **********************************************************\MessageBreak
+     Questa classe lavora solo con pdfLaTeX, XeLaTeX o LuaLaTeX\MessageBreak
+     This class works only with pdfLaTeX, XeLaTeX, or LuaLaTeX \MessageBreak
+     Premi X per terminare -- Press X to exit                  \MessageBreak
+     **********************************************************
+   }}
 \DeclareOption{draft}{%
   \PassOptionsToClass{\CurrentOption}{article}
 }
