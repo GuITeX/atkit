@@ -462,12 +462,23 @@
 \def\NoBlackBoxes{\overfullrule=\z@}
 \def\ATname{\Ars}
 \newcommand*\pkgname[1]{\textsf{#1}}
+\let\pack\pkgname
 \newcommand*\clsname[1]{\textsf{#1}}
+\let\class\clsname
 \newcommand*\optname[1]{\textsf{#1}}
+\let\opz\optname
 \newcommand*\envname[1]{\textsf{#1}}
+\let\env\envname
 \DeclareRobustCommand\cmdname[1]{\texttt{\char`\\#1}}
+\let\cs\cmdname
 \DeclareRobustCommand\meta[1]{%
-  \ensuremath{\langle}\emph{#1}\ensuremath{\rangle}}
+  {\normalfont\ensuremath{\langle}\emph{#1}\ensuremath{\rangle}}}
+\newcommand*\marg[1]{\texttt{\{\meta{#1}\}}}
+\newcommand*\oarg[1]{\texttt{[\meta{#1}]}}
+\newcommand*\Arg[1]{\texttt{\char123#1\char125}}
+\newcommand*\prog[1]{\textsf{#1}}
+\newcommand*\file[1]{\texttt{#1}}
+\newcommand*\amb[1]{\textit{#1}}
 \def\@cfgfound{\ClassInfo{arstexnica}{Info loaded from \jobname.cfg.}}
 \def\@cfgnotfound{\ClassWarning{arstexnica}{Config file not found.}}
 
