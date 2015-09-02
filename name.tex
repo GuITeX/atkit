@@ -3,17 +3,19 @@
 \documentclass{arstexnica}
 
 % Il codice che segue rende possibile usare uno qualsiasi tra i
-% principali motori di tipocomposizione. Si prega di non modificare il
-% preambolo se non è strettamente necessario. È consentito aggiungere
-% altre lingue e font particolari ove l'argomento dell'articolo lo
-% richieda. Altre personalizzazioni vanno fatte nei file
-% `\jobname-package.tex' e `\jobname-command.tex'.
+% principali motori di tipocomposizione pdfLaTeX, XeLaTeX, LuaLaTeX.
+% Si prega di non modificare il preambolo se non è strettamente
+% necessario.  È consentito aggiungere altre lingue e font particolari
+% ove l'argomento dell'articolo lo richieda. Altre personalizzazioni
+% vanno fatte nei file `\jobname-package.tex' e
+% `\jobname-command.tex'.
 %
-% The following code allows for the use of any typesetting
-% engine. Please, don't change the preamble unless it is strictly
-% necessary. You can add other languages or fonts if it is required by
-% the subject of the paper. Other customizations should be added in
-% `\jobname-package.tex' and `\jobname-command.tex'.
+% The following code allows the use of any typesetting
+% engine among pdfLaTeX, XeLaTeX, or LuaLaTeX.
+% Please, don't change the preamble unless it is strictly necessary.
+% You can add other languages or fonts if it is required by
+% the subject of the paper. Other customisations should be added to
+% the files `\jobname-package.tex' and `\jobname-command.tex'.
 %
 \ifbool{PDFTeX}{%                                    pdfLaTeX
     \usepackage[T1]{fontenc}
@@ -57,3 +59,4 @@
 \include{\jobname-article}
 
 \end{document}
+

@@ -1,4 +1,4 @@
-This is the README that comes along the ArsTeXnica Author's kit version 2.2.2.
+This is the README that comes along the ArsTeXnica Author's kit version 2.3.0.
 It is released under the LPPL 1.3c or later.
 Copyright (c) 2011-2015 Gianluca Pignalberi and GuIT
 ----------------------------------------------------------------------------
@@ -18,31 +18,53 @@ This Author's Kit for ArsTeXnica contains the following files:
 * README_it (Italian translation of this file).
 
 The first five files are necessary (arstexnica.* are fundamental), and the 
-name*tex files are those the author will modify according to her needs.
+name*.tex files are those the author will modify according to her needs.
 
 * <name>.tex: this is the master document, where preamble and the packages 
-	needed to compile ArsTeXnica papers are written. You shouldn't modify
-	anything, since inputenc loads now the utf8x option. The only change
-	is that one in the file name, which has to be modified now;
+	needed to compile ArsTeXnica papers are written. You can typeset your
+	paper with any typesetting program among pdfLaTeX, XeLaTeX, or LuaLaTeX.
+	Please, specify with a comment line just before the \documentclass statement 
+	which typesetting program you are using for your paper.
+	You shouldn't modify anything, since the preamble takes care of anything 
+	you might need, but you are allowed to add other languages and other fonts
+	if your paper requires them. 
+	You must change the file <name>, which must be the same here and in the
+	following .tex files.
 
 * <name>-article.tex: here you'll only write the paper's text; no package
 	inclusion, no commands. Following the required specs helps us to fix
 	the script that gathers the papers and generates the current issue.
-	Change <name> according to the master file's;
+	Change <name> according to the master file's.
 
 * <name>-package.tex: write here all the packages you're going to use in your 
 	paper. It's advisable to write here the package listings' 
-	customization. As usual, <name> has to be the same as the master file;
+	customisation. As usual, <name> has to be the same as the master file's.
 
-* <name>-command.tex: write here all and only those custom commands needed in
-	your paper. Two advices: don't write a non-strictly necessary command.
-	Often you find the same command (eventually with the same name) in
-	already available packages; the latter one should be significantly
-	more robust since a lot of users have probably tested it in different
+* <name>-command.tex: define here all and only those custom commands needed in
+	your paper. Two advices: don't write a non-strictly necessary commands.
+	Often you find the same command (possibly with the same name) in
+	already available packages; the latter ones should be significantly
+	more robust since a lot of users have probably tested them in different
 	environments. It is common that two or more authors use the same name
 	for their commands (e.g., \progname); this leads to compilation errors
-	or to result's inconsistency. Please get used to custom your commands, 
+	or inconsistencies. Please get used to custom your commands, 
 	for instance including your initials in the command name: \GPprogname 
 	could be a good name for my version of that command. This doesn't 
-	zeroize, but greately reduces, the probability of conflicts among
+	eliminate, but greatly reduces the probability of conflicts among
 	command names used by different authors.
+
+The required class and package files are the following.
+
+* arstexnica.cls is the class file required to typesett every article and 
+  the whole magazine.
+  
+* arstexnica.bst is the style file for typesetting the bibliography.
+
+* arstexnica.bib the the complete bibliographic database containing all the
+  necessary data connected to the articles already published on ArsTeXnica.
+  
+* arsacro.sty contains the definitions of the commands required to typeset
+  the names of the majority of programs connected with TeX. 
+  
+* guit.sty contains the definitions of the macros required to typeset 
+  ArsTeXnica's and GuIT's logos.
