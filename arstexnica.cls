@@ -2,7 +2,6 @@
 \ProvidesClass{arstexnica}[2015/09/02 v0.7.4 Document class for Ars TeXnica]
 \RequirePackage{guit}
 \RequirePackage{currfile}
-\RequirePackage{arsacro}
 \RequirePackage{iftex}
 \RequirePackage{etoolbox}
 \newcommand\ArsTeXnicaError{\ClassError{arstexnica}{%
@@ -113,6 +112,7 @@
 \ExecuteOptions{draft,paper}
 \ProcessOptions
 \LoadClass[a4paper,twocolumn,twoside,10pt]{article}
+\RequirePackage{arsacro}
 \RequirePackage{dblfloatfix}
 \RequirePackage{balance}
 \RequirePackage{textcomp}
