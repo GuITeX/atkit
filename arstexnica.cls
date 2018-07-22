@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{arstexnica}[2017/12/06 v0.7.5 Document class for Ars TeXnica]
+\ProvidesClass{arstexnica}[2018/07/22 v0.8.0 Document class for Ars TeXnica]
 \RequirePackage{guit}
 \RequirePackage{currfile}
 \RequirePackage{iftex}
@@ -251,7 +251,11 @@
     \def\@makefnmark{\rlap{\@textsuperscript{%
        \normalfont\@atthanksheadpre \tamark \@atthanksheadpost}}}%
     \long\def\@makefntext##1{\makethanksmark ##1}
+    \if@twocolumn
         \twocolumn[\@maketitle]%
+    \else
+         \@maketitle
+    \fi
     \thispagestyle{plain}\@thanks
   \endgroup
   \@atcontmark  %  \setcounter{footnote}{0}%
