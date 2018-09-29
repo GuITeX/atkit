@@ -113,7 +113,6 @@
 \ProcessOptions
 \LoadClass[a4paper,twocolumn,twoside,10pt]{article}
 \RequirePackage{arsacro}
-\RequirePackage{dblfloatfix}
 \RequirePackage{balance}
 \RequirePackage{textcomp}
 \RequirePackage{geometry}
