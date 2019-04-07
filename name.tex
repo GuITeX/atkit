@@ -24,21 +24,21 @@
     \usepackage{lmodern}
   }{\ifbool{XeTeX}{%                                 XeLaTeX
     \usepackage{fontspec}
-    \defaultfontfeatures{Ligatures=TeX}
+    \defaultfontfeatures[\rmfamily, \sffamily]{Ligatures=TeX}
     \setmainfont{CMU Serif}
     \setsansfont{CMU Sans Serif}
     \setmonofont{CMU Typewriter Text}
     \usepackage{polyglossia}
-    \setmainlanguage[babelshorthands]{italian}
+    \setmainlanguage[babelshorthands,indentfirst=false]{italian}
     \setotherlanguage{english}
     }{\ifbool{LuaTeX}{%                              LuaLaTeX
       \usepackage{fontspec}
-      \defaultfontfeatures{Ligatures=TeX}
+      \defaultfontfeatures[\rmfamily, \sffamily]{Ligatures=TeX}
       \setmainfont{CMU Serif}
       \setsansfont{CMU Sans Serif}
       \setmonofont{CMU Typewriter Text}
       \usepackage{polyglossia}
-      \setmainlanguage[babelshorthands]{italian}
+      \setmainlanguage[babelshorthands,indentfirst=false]{italian}
       \setotherlanguage{english}
       }{%
       \ArsTeXnicaError\endinput
