@@ -29,7 +29,8 @@
     \setsansfont{CMU Sans Serif}
     \setmonofont{CMU Typewriter Text}
     \usepackage{polyglossia}
-    \setmainlanguage[babelshorthands,indentfirst=false]{italian}
+    \setmainlanguage[babelshorthands]{italian}
+    \PolyglossiaSetup{italian}{indentfirst=false}
     \setotherlanguage{english}
     }{\ifbool{LuaTeX}{%                              LuaLaTeX
       \usepackage{fontspec}
@@ -38,7 +39,8 @@
       \setsansfont{CMU Sans Serif}
       \setmonofont{CMU Typewriter Text}
       \usepackage{polyglossia}
-      \setmainlanguage[babelshorthands,indentfirst=false]{italian}
+      \setmainlanguage[babelshorthands]{italian}
+      \PolyglossiaSetup{italian}{indentfirst=false}
       \setotherlanguage{english}
       }{%
       \ArsTeXnicaError\endinput
