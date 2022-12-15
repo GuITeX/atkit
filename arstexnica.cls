@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{arstexnica}[2018/07/22 v0.8.0 Document class for Ars TeXnica]
+\ProvidesClass{arstexnica}[2021/05/23 v1.0.0 Document class for Ars TeXnica]
 \RequirePackage{guit}
 \RequirePackage{currfile}
 \RequirePackage{iftex}
@@ -19,6 +19,9 @@
      Premi X per terminare -- Press X to exit                  \MessageBreak
      **********************************************************
    }}
+\newif\ifAT@paper\AT@paperfalse
+\newif\ifAT@sig\AT@sigtrue
+\newif\ifAT@print\AT@printfalse
 \DeclareOption{draft}{%
   \PassOptionsToClass{\CurrentOption}{article}
 }
@@ -26,108 +29,57 @@
   \PassOptionsToClass{\CurrentOption}{article}
 }
 \DeclareOption{paper}{%
+  \AT@papertrue
   \def\@pjp{paper}
   \AtEndOfClass{%
     \let\tableofcontents\relax
-    \def\@openarticle{\openarticlehook}
-    \def\@closearticle{\@makesig}
-  }
-}
-\DeclareOption{journal}{%
-  \def\@pjp{journal}
-  \AtEndOfClass{%
-    \def\ATtableofcontents{%
-      \renewcommand{\contentsname}{}
-      \onecolumn
-      \settowidth{\arswidth}{\scalebox{7}{\Ars}}
-      \vspace*{4cm}
-      \begin{center}
-      \parbox{\arswidth}{%
-        \raggedleft
-        \scalebox{7}{\Ars}\par
-        \vspace{10pt}
-        \ArsSubtitle}\par
-        \vskip\baselineskip
-        \IssueLine
-      \end{center}
-      \vskip4\baselineskip
-      {\centering
-      \begin{minipage}{\arswidth}
-      \@oldtoc
-      \end{minipage}\par
-      }
-      \vfill
-%      {\noindent\LARGE Numero \AT@number\hfill \AT@month\ \AT@year}\par%\vskip\baselineskip
-%      {\noindent\LARGE Stampato a Pisa, Italia, \hfill \guit\ \guittext}\par
-      {\centering\LARGE \guittext\par}
-      \thispagestyle{empty}
-      \clearpage
-      {\thispagestyle{empty}\cleardoublepage}
-      }
-    \newcommand*\l@title{\@dottedtocline{0}{0pt}{0pt}}
-    \setcounter{tocdepth}{0}
-    \def\@openarticle{%
-      \openarticlehook
-      \nobalance
-      \refstepcounter{article}
-      \@addtoreset{section}{article}
-      \@addtoreset{figure}{article}
-      \@addtoreset{table}{article}
-      \@addtoreset{equation}{article}
-      \@addtoreset{footnote}{article}
-      \@addtoreset{author}{article}
-      \edef\theauthorlist{}
-      \edef\AT@authors@bibentry{}
-      \renewcommand\thesection{\arabic{section}}
-      \setlength\sigindent{.25\columnwidth}
-      \edef\AT@init@page{\thepage}
-      \immediate\write\AT@articlepath{\currfiledir\currfilebase}
-    }
-    \def\@closearticle{%
-      \@makesig
-      \edef\AT@end@page{\thepage}
-      \AT@write@bibentry
-    }
-    \InputIfFileExists{\jobname.cfg}{%
-      \@cfgfound}{\@cfgnotfound}
-  }
-  \AtBeginDocument{
-    \openout\AT@lst=artlist.lst
-    \openout\AT@articlepath=articlepath.lst
-    \RequirePackage{arstestata}
-  }
-  \AtEndDocument{%
-    \closeout\AT@lst
-    \closeout\AT@articlepath
-  }
-}
-\DeclareOption{standalone}{%
-  \AtEndOfClass{%
     \def\@openarticle{}
     \def\@closearticle{\@makesig}
-  \let\tableofcontents\@oldtoc
   }
-  \def\@pjp{standalone}
 }
-\ExecuteOptions{draft,paper}
+\DeclareOption{online}{%
+  \def\AT@mode{online}
+  \AT@printfalse
+}
+\DeclareOption{print}{%
+  \def\AT@mode{print}
+  \AT@printtrue
+}
+\DeclareOption{nosig}{%
+  \AT@sigfalse
+}
+\ExecuteOptions{draft,paper,noimpose,online}
 \ProcessOptions
-\LoadClass[a4paper,twocolumn,twoside,10pt]{article}
+\LoadClass[b5paper,twoside,10pt]{article}
+\RequirePackage{textcase}
+
+\DeclareRobustCommand*{\arsweb}{\url{http://www.guitex.org/arstexnica/}}% Indirizzo web ArsTeXnica
+
 \RequirePackage{arsacro}
 \RequirePackage{balance}
 \RequirePackage{textcomp}
 \RequirePackage{geometry}
 \geometry{%
-   hmargin=2.5cm,
-   vmargin={2cm,2.5cm},
-   bindingoffset=3mm,
-   columnsep=15pt
+  b5paper,
+  textwidth=28cc,
+  textheight=43cc,
+  vmarginratio=1:1,
+  headsep=1cc,
+  twoside,
+  heightrounded,
 }
-\newwrite\@bibentry
-\newwrite\@abstractout
-\newwrite\AT@articlepath
+\ifAT@print
+\geometry{%
+  hmarginratio=1:2,
+  bindingoffset=3mm,
+}
+\else
+\geometry{%
+  hmarginratio=1:1,
+}
+\fi
 \newif\if@fvrbex
 \newif\if@hyperref
-\def\openarticlehook{}
 \def\@part[#1]#2{%
     \ifnum \c@secnumdepth >\m@ne
       \refstepcounter{part}%
@@ -157,109 +109,19 @@
      \nobreak
      \vskip 3ex
      \@afterheading}
-\renewcommand{\section}{\@startsection{section}{1}{\z@}%
-  {-1\baselineskip \@plus -.2ex \@minus -.1ex}{.5\baselineskip \@plus .2ex}{\normalfont\large\bfseries}}
-\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
-   {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\normalfont\normalsize\bfseries}}
-\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
-    {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\normalfont\normalsize\itshape}}
-\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
-    {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\normalfont\normalsize\itshape}}
-\renewcommand{\subparagraph}{\@startsection{subparagraph}{5}{\z@}%
-    {-0.5\baselineskip \@plus -.2ex \@minus -.1ex}{1ex \@plus .2ex}{\normalfont\normalsize\itshape}}
 
-\newcommand{\pretitle}[1]{\def\@atpretitle{#1}}
-\newcommand{\posttitle}[1]{\def\@atposttitle{#1}}
-\newcommand{\preauthor}[1]{\def\@atpreauthor{#1}}
-\newcommand{\postauthor}[1]{\def\@atpostauthor{#1}}
-\newcommand{\predate}[1]{\def\@atpredate{#1}}
-\newcommand{\postdate}[1]{\def\@atpostdate{#1}}
-
-\pretitle{%
-  \begin{center}\LARGE\bfseries
-}
-\posttitle{%
-  \par\end{center}%
-  \vskip 0.5em
-}
-\preauthor{\begin{center}
-  \large\itshape \lineskip .5em%
-  \begin{tabular}[t]{c}}
-\postauthor{\end{tabular}\par\end{center}}
-\predate{\begin{center}\large}
-\postdate{\par\end{center}}
-
-\newcommand{\maketitlehooka}{}
-\newcommand{\maketitlehookb}{}
-\newcommand{\maketitlehookc}{}
-\newcommand{\maketitlehookd}{}
-
-\newcommand{\thanksmarkseries}[1]{%
-  \def\@atmarkseries{\renewcommand{\thefootnote}{\@nameuse{#1}{footnote}}}}
-\newcommand{\symbolthanksmark}{\thanksmarkseries{fnsymbol}}
-\newcommand{\@atcontmark}{\setcounter{footnote}{0}}
-\newcommand{\continuousmarks}{\def\@atcontmark{}}
-\newcommand{\thanksheadextra}[2]{%
-  \def\@atthanksheadpre{#1}%
-  \def\@atthanksheadpost{#2}}
-\newcommand{\thanksfootextra}[2]{%
-  \def\thanksfootpre{#1}%
-  \def\thanksfootpost{#2}}
-
-\DeclareRobustCommand{\thanksmark}[1]{\footnotemark[#1]}
-\newcommand{\thanksgap}[1]{\hspace{#1}}
-\newcommand{\tamark}{\@thefnmark}
-
-\newlength{\thanksmarkwidth}
-\newlength{\thanksmargin}
-\newcommand{\thanksscript}[1]{\textsuperscript{#1}}
-\newcommand{\makethanksmarkhook}{}
-
-\newcommand{\thanksfootmark}{%
-  \hb@xt@\thanksmarkwidth{\hfil\normalfont\thanksscript{%
-    \thanksfootpre \tamark \thanksfootpost}}}
-
-\newcommand{\makethanksmark}{%
-  \leavevmode%
-  \makethanksmarkhook\relax
-  \parindent 1em\noindent
-  \leftskip\thanksmargin\relax
-  \advance\leftskip \thanksmarkwidth \null\nobreak\hskip -\leftskip
-  \thanksfootmark
-}
-
-\newcommand{\usethanksrule}{\let\footnoterule\thanksrule}
-\newcommand{\cancelthanksrule}{\let\footnoterule\@atfootnoterule}
-
-\symbolthanksmark
-
-\thanksheadextra{}{}
-\thanksfootextra{}{}
-\setlength{\thanksmarkwidth}{1.8em}
-\setlength{\thanksmargin}{-\thanksmarkwidth}
-
-\AtBeginDocument{%
-  \let\AtBeginDocument\AtEndOfPackage
-  \let\thanksrule\footnoterule
-  \let\@atfootnoterule\footnoterule
-}
-
-\renewcommand{\maketitle}{\par
-  \begingroup
-    \@atmarkseries
-    \def\@makefnmark{\rlap{\@textsuperscript{%
-       \normalfont\@atthanksheadpre \tamark \@atthanksheadpost}}}%
-    \long\def\@makefntext##1{\makethanksmark ##1}
-    \if@twocolumn
-        \twocolumn[\@maketitle]%
-    \else
-         \@maketitle
-    \fi
-    \thispagestyle{plain}\@thanks
-  \endgroup
-  \@atcontmark  %  \setcounter{footnote}{0}%
-}
-
+\RequirePackage{titling}
+\newcounter{title}
+\setcounter{title}{0}
+\newcommand{\theHtitle}{\arabic{title}}
+\def\title@toc@entry#1{%
+  \if@hyperref
+  \xdef\@currentHref{title.\theHtitle}%
+  \Hy@raisedlink{\hyper@anchorstart{\@currentHref}\hyper@anchorend}%
+  \else\fi
+  \csname toc@entry@#1\endcsname}
+\let\toc@entry@paper\relax
+\newwrite\AT@lst % Per i titoli degli articoli nei sommari
 \renewcommand{\title}[2][\@empty]{%
   \gdef\@title{#2}%
   \begingroup
@@ -273,175 +135,182 @@
   \fi
   \endgroup
 }
-\newcounter{author}
-\setcounter{author}{0}
-\def\addto@theauthorlist#1{
-  \begingroup
-  \renewcommand{\thanks}[1]{}
-  \renewcommand{\thanksmark}[1]{}
-  \renewcommand{\thanksgap}[1]{}
-  \protected@xdef\theauthorlist{%
-    \theauthorlist\ifnum\c@author=\@ne\else,\ \fi#1}
-  \protected@xdef\AT@authors@bibentry{%
-    \AT@authors@bibentry\ifnum\c@author=\@ne\else\space and\space \fi#1}
-  \endgroup
+\newif\if@ATbreakbeforeaddresses
+\@ATbreakbeforeaddressesfalse
+\def\AT@maybebreak{\if@ATbreakbeforeaddresses\clearpage\fi}
+\def\AddressesOnNewPage{\@ATbreakbeforeaddressestrue}
+\newcounter{AT@author@cnt}
+\setcounter{AT@author@cnt}{0}
+\newcounter{AT@temp}
+\setcounter{AT@temp}{0}
+\def\@author{}
+\def\theauthor{\setcounter{AT@temp}{0}}
+\def\AT@addresses{\AT@maybebreak}
+\def\AT@author@sep{%
+  \stepcounter{AT@temp}%
+  \ifnum\c@AT@temp=1\relax\else%
+    \ifnum\c@AT@temp=\c@AT@author@cnt%
+      \space and\space%
+    \else%
+      ,\space
+    \fi%
+  \fi%
 }
-\def\AT@makekey@bibentry#1#2#3#4#5#6#7#8#9\@empty{\def\AT@authorinkey@bibentry{#1#2#3#4#5#6#7#8}}
-\let\originaltextlatin\textlatin
-\let\textlatin\relax
-\renewcommand{\author}[1]{%
-  \stepcounter{author}
-  \ifnum\c@author=1\AT@makekey@bibentry#1\null\null\null\null\null\null\@empty\fi
-  \expandafter\gdef\csname author@\romannumeral\c@author\endcsname{#1}
-  \addto@theauthorlist{#1}
+\def\AT@addr@sep{%
+  \stepcounter{AT@temp}%
+  \par\vskip3pt
+  % \item[]
+}
+\def\AT@dest{}
+\def\AT@target{}
+\newcommand\AT@set@links[2]{%
+  \def\AT@dest{#1}%
+  \def\AT@target{#2}%
+}
+\def\AT@affil@sep{}
+\def\AT@email@sep{}
+\newcommand\AT@hyperlink[1]{%
+  \hyperlink{\AT@dest-\c@AT@temp}{\Hy@raisedlink{\hypertarget{\AT@target-\c@AT@temp}{}}#1}%
+}
+\def\AT@affiliation@mark{%
+  \ifnum\c@AT@author@cnt>1%
+    \AT@hyperlink{\textsuperscript{\theAT@temp}}\unskip%
+  \fi%
+}
+\def\addto@theauthorlist#1{
+  \begingroup%
+  \renewcommand{\thanks}[1]{}%
+  \renewcommand{\thanksmark}[1]{}%
+  \renewcommand{\thanksgap}[1]{}%
+  \ifnum\c@AT@author@cnt=\@ne%
+    \protected@xdef\@firstauthor{#1}%
+  \fi%
+  \protected@xdef\theauthorlist{%
+    \theauthorlist\ifnum\c@AT@author@cnt=\@ne\else,\ \fi#1}%
+  \endgroup%
 }
 \edef\theauthorlist{}
-\edef\AT@authors@bibentry{}
-\def\@authorlist{%
-  \@tempcntb\@ne
-  \@whilenum\c@author>\@tempcntb\do{%
-    {\@nameuse{author@\romannumeral\@tempcntb}, }%
-    \advance\@tempcntb\@ne
+\renewcommand\author[1]{%
+  \stepcounter{AT@author@cnt}%
+  % \g@addto@macro\@author{\AT@author@sep#1\AT@affiliation@mark}%
+  \addto@theauthorlist{#1}%
+  \g@addto@macro\@author{\AT@author@sep#1}%
+  \g@addto@macro\theauthor{\AT@author@sep#1}%
+  \g@addto@macro\AT@addresses{%
+    \AT@addr@sep%
+    \def\AT@affil@sep{\newline}%
+    \def\AT@email@sep{\newline}%
+    \hangfrom{\phantom{1}}#1%
   }%
-  \@nameuse{author@\romannumeral\@tempcntb}
+  \AT@authors@hook{#1}%
 }
+\def\AT@authors@hook#1{}
+\newcommand\address[1]{%
+  \g@addto@macro\AT@addresses{%
+    \AT@affil@sep\textsc{#1}%
+  }%
+}
+\newcommand\netaddress[1]{\g@addto@macro\AT@addresses{\AT@email@sep\url{#1}}}
 
-\newcommand{\address}[1]{%
-  \expandafter\gdef\csname address@\romannumeral\c@author\endcsname{#1}
-}
-\newcommand{\netaddress}[1]{%
-  \expandafter\gdef\csname netaddress@\romannumeral\c@author\endcsname{#1}
-}
-\newcounter{title}
-\setcounter{title}{0}
-\newcommand{\theHtitle}{\arabic{title}}
-\def\title@toc@entry#1{%
-  \if@hyperref
-  \xdef\@currentHref{title.\theHtitle}%
-  \Hy@raisedlink{\hyper@anchorstart{\@currentHref}\hyper@anchorend}%
-  \else\fi
-  \csname toc@entry@#1\endcsname}
-\let\toc@entry@paper\relax
-\let\toc@entry@standalone\relax
-\newwrite\AT@lst
-\def\toc@entry@journal{
-  \def\emptystring{}
-  \ifx\theauthorlist\emptystring
-    {\let\thanks\@gobble\addcontentsline{toc}{title}{{\@title}}}
-  \else
-    {\let\thanks\@gobble\addcontentsline{toc}{title}{{\@title}\newline \emph{\theauthorlist}}}
-  \fi
-  %\addcontentsline{toc}{title}{\thetitle\newline \emph{\theauthorlist}}
-  \protected@write\AT@lst{\let\thanks\@gobble \let\label\@gobble \let\index\@gobble \let\glossary\@gobble}{%
-    %\protect\@titleline{\theauthorlist}{\thetitle}{\thepage}}
-    \protect\@titleline{\theauthorlist}{\@title}{\thepage}}
-}
-\newcommand\ATarticlelist{%
-  \begin{center}
-  \large
-  \list{}{\parsep=0pt \let\makelabel\ATindexlabel \labelsep=1em \listparindent=2.5em}
-  \makeatletter
-  \InputIfFileExists{artlist.lst}{}{}%
-  \makeatother
-  \endlist
-  \end{center}
-}
-\newcommand\ATindexlabel[1]{%
-  \makebox[2.5em][r]{#1}}
-\newcommand\@titleline[3]{%
-  \newdimen\tmp%
-  \advance\tmp by \textwidth%
-  \advance\tmp by -4.5em%
-%% The \phantom{q}s are to correct the depth of those lines with no descenders
-  \item[#3] \begin{minipage}[t]{\tmp}#2\phantom{q}\par%
-  \textit{#1}\phantom{q}%
-  \end{minipage}
-}
-\def\@atdate#1{\csname date@#1\endcsname}
-\let\date@paper\relax
-\let\date@journal\relax
-\def\date@standalone{\@atpredate \@date \@atpostdate}
-\def\@maketitle{%
-  \stepcounter{title}
-  \title@toc@entry{\@pjp}
-  \vspace{\@articlesep}
-  \maketitlehooka
-  {\@atpretitle \@title \@atposttitle}
-  \maketitlehookb
-  {\@atpreauthor \@authorlist \@atpostauthor}
-  \maketitlehookc
-  {\@atdate{\@pjp}}
-  \maketitlehookd
-  \par
-  \vskip 1.5em
-}
+\newcommand{\hangfrom}[1]{%
+  \setbox\@tempboxa\hbox{{#1}}%
+  \hangindent \wd\@tempboxa\noindent\box\@tempboxa}
 
-\newlength\sigindent
-\setlength\sigindent{.25\columnwidth}
+\let\AT@thanks\thanks
+\def\thanks#1{\NoCaseChange{\AT@thanks{#1}}}
+\setlength\droptitle{-\topskip}
+\g@addto@macro\maketitle{%
+  \stepcounter{title}%
+  \title@toc@entry{\@pjp}%
+  \thispagestyle{first}%
+}
+\pretitle{%
+  \nointerlineskip\raggedright\bfseries\LARGE
+}
+\posttitle{\par}
+\renewcommand\maketitlehookb{\vspace{1cc}}
+\preauthor{%
+%  \AT@set@links{aff}{au}
+  \raggedright
+}
+\postauthor{\par}
+\renewcommand\maketitlehookc{\vspace{3\baselineskip}\date{}}
+\predate{} \postdate{}
+\renewcommand\maketitlehookd{\par\vspace{\dimexpr-1.5em-\topsep}}
+
+\newlength\ATsigsep
+\setlength\ATsigsep{1.5\baselineskip minus 6pt}
 \def\@makesig{%
-  \if@fvrbex\long\def\@gobble##1{}\else\fi
-  \renewcommand{\thanks}[1]{}
-  \renewcommand{\thanksmark}[1]{}
-  \renewcommand{\thanksgap}[1]{}
-  \vspace{\DropSig}
-  \list{}{\topsep\z@ \parsep\z@ \leftmargin=\sigindent \partopsep\z@}
-  \@tempcntb\z@
-  \@whilenum\c@author>\@tempcntb\do{%
-    \advance\@tempcntb\@ne
-    \item[\SigSymbol]
-    \@usenempty{author@\romannumeral\@tempcntb}\par\nobreak
-    \@usenempty{address@\romannumeral\@tempcntb}\par\nobreak
-    \texttt{\@usenempty{netaddress@\romannumeral\@tempcntb}}
-    }
-  \endlist
-  \gdef\@thanks{}
-  \if@fvrbex\def\@gobble##1{}\else\fi
-}
-\def\AT@tablecaptions{%
-  \setlength{\belowcaptionskip}{\abovecaptionskip}%
-  \setlength{\abovecaptionskip}{0pt}%
-}
-\def\AT@figurecaptions{}
-\AtBeginDocument{%
-\long\def\@makecaption#1#2{%
-  \@nameuse{AT@\@captype captions}
-  \footnotesize
-  \vskip\abovecaptionskip
-  \sbox\@tempboxa{\textsc{#1}: #2}%
-  \ifdim \wd\@tempboxa >\hsize
-    \textsc{#1}: #2\par
-  \else
-    \global \@minipagefalse
-    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \ifAT@sig
+    \setcounter{AT@temp}{0}
+    \small
+    \vspace{\ATsigsep}
+    \AT@set@links{au}{aff}
+    \AT@addresses
   \fi
-  \vskip\belowcaptionskip}
 }
+
+\RequirePackage[runin]{abstract}
+\AtBeginDocument{
+  \abslabeldelim{\hspace{.5em}}
+  \setlength\absparindent{\parindent}
+  \setlength\abstitleskip{-\absparindent}
+}
+
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname.\quad}
+\renewcommand\abstractnamefont{\normalfont\small\bfseries}
+\setlength\absleftindent{0pt}
+\setlength\absrightindent{0pt}
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+  {-2\baselineskip \@plus -.2ex \@minus -.1ex}{1\baselineskip \@plus .2ex}{\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {-1\baselineskip \@plus -.2ex \@minus -.1ex}{.5\baselineskip \@plus .2ex}{\normalfont\normalsize\itshape}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+  {-1\baselineskip \@plus -.2ex \@minus -.1ex}{.5\baselineskip \@plus .2ex}{\normalfont\normalsize\itshape}}
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
+  {-1\baselineskip \@plus -.2ex \@minus -.1ex}{.5\baselineskip \@plus .2ex}{\normalfont\normalsize\itshape}}
+\renewcommand{\subparagraph}{\@startsection{subparagraph}{5}{\z@}%
+  {-1\baselineskip \@plus -.2ex \@minus -.1ex}{.5\baselineskip \@plus .2ex}{\normalfont\normalsize\itshape}}
+
+\RequirePackage{caption}
+\AtBeginDocument{
+  \captionsetup{
+    singlelinecheck=off,
+    format=plain,
+    labelformat=original,
+    labelsep=period,
+    justification=justified,
+    font=small,
+    labelfont=bf,
+  }
+}
+\RequirePackage[hang,norule]{footmisc}
+\setlength\footnotemargin{1.25em}
+\patchcmd{\@makefntext}{\@makefnmark}{\AT@makefnmark}{}{}
+\def\AT@makefnmark{\@thefnmark.\kern2mm}
 \newcounter{article}
 \newenvironment{article}{%
   \@openarticle}{\@closearticle\clearpage}
-\newcommand{\theHarticle}{\arabic{article}}
 
-\def\@paperhead{\ATname\ N\textordmasculine\ 0, Dicembre 2099}
-\def\@journalhead{\ATname\ N\textordmasculine\ \AT@number, \AT@month\ \AT@year}
+\def\AT@number{}
+\def\AT@month{}
+\def\AT@year{}
+\def\@paperhead{\small\Ars\hfill Preprint~{\textperiodcentered}~\today}
 \def\ps@paper{%
-  \def\@oddfoot{\hfil\thepage\hfil}
-  \def\@evenfoot{\hfil\thepage\hfil}
-  \def\@oddhead{\@paperhead\hfil\thetitle}
-  \def\@evenhead{\theauthorlist\hfil\@paperhead}
+  \def\@oddfoot{\@paperhead}
+  \def\@evenfoot{\@paperhead}
+  \def\@oddhead{{\thetitle}\hfil\thepage}
+  \def\@evenhead{\thepage\hfil{\theauthor}}
 }
-\def\ps@journal{%
-  \def\@oddfoot{\hfil\thepage\hfil}
-  \def\@evenfoot{\hfil\thepage\hfil}
-  \def\@oddhead{\@headfont\@journalhead\hfil\thetitle}
-  \def\@evenhead{\@headfont\theauthorlist\hfil\@journalhead}
-}
-\def\ps@standalone{%
-  \def\@oddfoot{\hfil\thepage\hfil}
-  \def\@evenfoot{\hfil\thepage\hfil}
-  \def\@oddhead{\thetitle\hfil{\itshape\theauthorlist}}
-  \def\@evenhead{{\itshape\theauthorlist}\hfil\thetitle}
+\def\ps@first{%
+  \def\@oddfoot{\@paperhead}
+  \def\@evenfoot{\@paperhead}
+  \def\@oddhead{}
+  \def\@evenhead{}
 }
 \let\ps@toc\ps@empty
+\let\ps@plain\ps@empty
+\let\ps@injournal\ps@empty
 \AtBeginDocument{%
   \pagestyle{\@pjp}
   \let\AT@thebibliography\thebibliography
@@ -485,12 +354,6 @@
 \def\@cfgfound{\ClassInfo{arstexnica}{Info loaded from \jobname.cfg.}}
 \def\@cfgnotfound{\ClassWarning{arstexnica}{Config file not found.}}
 
-\def\@usenempty#1{%
-  \csname #1\endcsname
-  \global\expandafter\let\csname #1\endcsname\@empty
-}
-
-\def\footnoterule{}
 \def\class@name{arstexnica}
 \newlength\@articlesep
 \setlength\@articlesep\z@
@@ -503,35 +366,9 @@
 \setlength\DropSig{2\baselineskip}
 \newlength{\arswidth}
 
-\renewcommand\@makefntext[1]{%
-    \parindent 1em%
-    \@thefnmark.\kern1.5mm#1}
-
-\def\AT@padded@startpage{%
-  \ifnum\AT@init@page>99\else\ifnum\c@page>9 0\thepage\else00\thepage\fi\fi}
-\begingroup
-  \catcode`\[ = 1\relax
-  \catcode`\] = 2\relax
-  \catcode`\{ = 12\relax
-  \catcode`\} = 12 \relax
-  \gdef\AT@open@bibentry[@Article{at:\AT@year-\AT@number-\AT@padded@startpage-\AT@authorinkey@bibentry,]
-  \gdef\AT@close@bibentry[}]
-\endgroup
-\def\AT@indent@bibentry{\space\space}
-\def\AT@write@bibentry{%
-  \immediate\openout\@bibentry \currfiledir\currfilebase.bib
-  \protected@write\@bibentry{}{\AT@open@bibentry}
-  \protected@write\@bibentry{}{\AT@indent@bibentry author = {\AT@authors@bibentry},}
-  \protected@write\@bibentry{}{\AT@indent@bibentry title = {\@title},}
-  \protected@write\@bibentry{}{\AT@indent@bibentry journal = {Ars\TeX nica},}
-  \protected@write\@bibentry{}{\AT@indent@bibentry year = \AT@year,}
-  \protected@write\@bibentry{}{\AT@indent@bibentry number = \AT@number,}
-  \protected@write\@bibentry{}{\AT@indent@bibentry pages = {\AT@init@page-\AT@end@page},}
-  \protected@write\@bibentry{}{\AT@indent@bibentry month = {\AT@month},}
-  \protected@write\@bibentry{}{\AT@indent@bibentry language = {\languagename},}
-  \protected@write\@bibentry{}{\AT@indent@bibentry issn = {1828-2350},}
-  \protected@write\@bibentry{}{\AT@close@bibentry}
-}
+% \renewcommand\@makefntext[1]{%
+%     \parindent 1em%
+%     \@thefnmark.\kern1.5mm#1}
 
 \newcommand{\lstrestoredefault}{
   \lstset{abovecaptionskip=\smallskipamount,
@@ -576,16 +413,24 @@
       texcsstyle=*{},
       xleftmargin=0pt,
       xrightmargin=0pt}}
-%% thanks to C. Beccari
-\def\manualbalance{%
- \ifvmode
-   \vfill
-   \penalty -\@M%
- \else
-   \@bsphack
-   \vadjust{\vspace{\z@\@plus1fill}\penalty -\@M}%
-   \@esphack
- \fi}
+
+\def\toclevel@ATtitle{-1}
+
+\colorlet{ATLinkColoronline}{blue!30!black}
+\colorlet{ATLinkColorprint}{black}
+
+\AtBeginDocument{
+  \colorlet{ATLinkColor}{ATLinkColor\AT@mode}
+  \hypersetup{% Attenzione: hyperref è sempre caricato! Dal pacchetto `guit', chiamato da `arstestata', chiamato da `arstexnica'. Non è più vero almeno dal 2012 (v0.9.1 di guit.sty).
+    colorlinks  = true,  
+    citecolor   = ATLinkColor,
+    linkcolor   = ATLinkColor, 
+    urlcolor    = ATLinkColor, 
+    bookmarksdepth = 3,
+    pdfencoding = auto,
+  }
+}
+
 
 \frenchspacing
 \endinput

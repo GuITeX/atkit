@@ -1,6 +1,6 @@
-This is the README that comes along the ArsTeXnica Author's kit version 2.6.2.
+This is the README that comes along the ArsTeXnica Author's kit version 3.0.0.
 It is released under the LPPL 1.3c or later.
-Copyright (c) 2011-2021 Gianluca Pignalberi and GuIT
+Copyright (c) 2011-2022 Gianluca Pignalberi and GuIT
 ----------------------------------------------------------------------------
 
 This Author's Kit for ArsTeXnica contains the following files:
@@ -10,15 +10,13 @@ This Author's Kit for ArsTeXnica contains the following files:
 * arstexnica.bst (bibliography style; natbib customization);
 * arstexnica.cls (journal class);
 * guit.sty (commands to typeset GuIT and ArsTeXnica-related names and logos);
-* name-article.tex (see below);
-* name-command.tex (see below);
-* name-package.tex (see below);
 * name.tex (see below);
 * README (this file);
 * README_it (Italian translation of this file).
 
-The first five files are necessary (arstexnica.* are fundamental), and the 
-name*.tex files are those the author will modify according to her needs.
+The first five files are necessary (arstexnica.* are fundamental), and
+the name.tex file is the file which the author will modify according
+to her needs.
 
 * <name>.tex: this is the master document, where preamble and the packages 
 	needed to compile ArsTeXnica papers are written. You can typeset your
@@ -30,28 +28,6 @@ name*.tex files are those the author will modify according to her needs.
 	if your paper requires them. 
 	You must change the file <name>, which must be the same here and in the
 	following .tex files.
-
-* <name>-article.tex: here you'll only write the paper's text; no package
-	inclusion, no commands. Following the required specs helps us to fix
-	the script that gathers the papers and generates the current issue.
-	Change <name> according to the master file's.
-
-* <name>-package.tex: write here all the packages you're going to use in your 
-	paper. It's advisable to write here the package listings' 
-	customisation. As usual, <name> has to be the same as the master file's.
-
-* <name>-command.tex: define here all and only those custom commands needed in
-	your paper. Two advices: don't write a non-strictly necessary commands.
-	Often you find the same command (possibly with the same name) in
-	already available packages; the latter ones should be significantly
-	more robust since a lot of users have probably tested them in different
-	environments. It is common that two or more authors use the same name
-	for their commands (e.g., \progname); this leads to compilation errors
-	or inconsistencies. Please get used to custom your commands, 
-	for instance including your initials in the command name: \GPprogname 
-	could be a good name for my version of that command. This doesn't 
-	eliminate, but greatly reduces the probability of conflicts among
-	command names used by different authors.
 
 The required class and package files are the following.
 

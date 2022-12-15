@@ -21,23 +21,12 @@
     \usepackage[T1]{fontenc}
     \usepackage[utf8]{inputenc}
     \usepackage[english, italian]{babel}
-    \usepackage{lmodern}
   }{\ifbool{XeTeX}{%                                 XeLaTeX
-    \usepackage{fontspec}
-    \defaultfontfeatures[\rmfamily, \sffamily]{Ligatures=TeX}
-    \setmainfont{CMU Serif}
-    \setsansfont{CMU Sans Serif}
-    \setmonofont{CMU Typewriter Text}
     \usepackage{polyglossia}
     \setmainlanguage[babelshorthands]{italian}
     \PolyglossiaSetup{italian}{indentfirst=false}
     \setotherlanguage{english}
     }{\ifbool{LuaTeX}{%                              LuaLaTeX
-      \usepackage{fontspec}
-      \defaultfontfeatures[\rmfamily, \sffamily]{Ligatures=TeX}
-      \setmainfont{CMU Serif}
-      \setsansfont{CMU Sans Serif}
-      \setmonofont{CMU Typewriter Text}
       \usepackage{polyglossia}
       \setmainlanguage[babelshorthands]{italian}
       \PolyglossiaSetup{italian}{indentfirst=false}
@@ -47,18 +36,105 @@
       }
     }
 }
+
+\usepackage{cochineal}
+\ifbool{PDFTeX}{%
+    \usepackage[varqu,varl,var0]{inconsolata}
+  }{%
+    \fontspec[StylisticSet={1,2,3},Scale=MatchLowercase]{inconsolata}
+}
+\usepackage[scale=.9,type1]{cabin}
+\usepackage[cochineal,vvarbb]{newtxmath}
+\usepackage[cal=boondoxo]{mathalfa}
+
 \usepackage{microtype}
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{hyperref}
 
-\input{\jobname-package}
+% Inserire qui tutti i pacchetti aggiuntivi a quelli usati nel master, 
+% necessari al proprio lavoro.
+% Possibilmente includete un solo pacchetto per comando \usepackage,
+% come nell'esempio che segue.
 
-\input{\jobname-command}
+% Put here all the packages you need, other than those included in the master
+% file.
+% Please, include only one package per \usepackage, as in the following
+% example.
+
+% \usepackage{curve2e}
+% \usepackage{fancyvrb}
+
+% Inserire qui tutti i comandi definiti dall'autore per il proprio articolo.
+% Meno ne definite, meglio è. Cercate prima un pacchetto che ne definisca uno
+% uguale.
+% Put here the author's commands, defined to typeset the article.
+% The less commands, the better. Before defining a command, look for a
+% package that provides you with the same command.
+
+\newcommand{\qq}{QQ} % Replace it with your command(s). Delete it if you don't
+		     % have any command.
 
 \begin{document}
 
-\include{\jobname-article}
+% In questo file scrivete solo il vostro articolo. Non mettete comandi o 
+% includete pacchetti: ci sono file dedicati a ciò.
+% L'articolo deve essere interamente racchiuso all'interno
+% dell'ambiente 'article'.
+
+% Put in this file your paper only. Don't put in it commands nor include
+% packages: there are files for those purposes.
+% The paper must be enclosed within the 'article' environment.
+
+\begin{article}
+
+\title[Titolo breve-Short title]{Titolo Lungo-Long title}
+
+% Ripetere le informazioni per ciascun autore.
+% Repeat info for each author.
+\author{Autore (Nome Cognome)/Author (Name Surname)}
+\address{Indirizzo o affiliazione-Address or affiliation}
+\netaddress{Author's email address}
+
+\maketitle
+
+\begin{abstract} % Write here the abstract in the main paper's language
+
+\end{abstract}
+
+\begin{otherlanguage}{} % Second language
+\begin{abstract}
+
+\end{abstract}
+\end{otherlanguage}
+
+% La classe mette a disposizione dell'autore i seguenti comandi:
+% The class provides us with the following commands:
+% \cmdname{command} -> \command
+% \meta{arg} -> <arg>
+% \clsname{class}
+% \pkgname{package}
+% \envname{environment}
+% \optname{option}
+
+% Figure e tabelle devono, di preferenza, essere incluse in un
+% ambiente flottante e munite di didascalia. Eventuali figure esterne
+% devono essere inviate insieme al file .tex, in un formato
+% compatibile con pdftex (PDF, JPEG, PNG).
+% Figures and tables should be enclosed in a floating environment, and
+% come along with a caption.
+% External figures must be sent along with the .tex file, in a
+% format suitable to be compiled with pdftex (PDF, JPEG, PNG).
+
+
+% Bibliografia: l'autore deve accludere il file .bib (preferibilmente) o il
+% .bbl contenente la % bibliografia relativa all'articolo.
+% Bibliography: authors must include paper's bibliography (.bib, possibly, or 
+% .bbl) files.
+
+\bibliographystyle{arstexnica}
+\bibliography{<file bibliografia>}
+
+\end{article}
 
 \end{document}
-

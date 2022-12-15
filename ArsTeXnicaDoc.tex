@@ -1,0 +1,393 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+\documentclass[12pt]{article}
+\ProvidesFile{ArsTeXnicaDoc.tex}[2022-04-11 v.1.6.1 Istruzioni per gli autori di ArsTeXnica]
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[italian,english.main]{babel}% English default language
+\usepackage{guit,arsacro,xcolor,enumitem}
+
+\usepackage{paracol}
+\usepackage[a4paper,hscale=0.8,vscale=0.85,heightrounded]{geometry}
+
+\providecommand\pdfLaTeX{pdf\/\-\LaTeX}
+\providecommand\XeLaTeX{X\kern-0.10em\raisebox{1.1ex}{\rotatebox{180}{E}}\kern-0.09em\-\LaTeX}
+\providecommand\LuaLaTeX{Lua\-\LaTeX}
+
+\DeclareRobustCommand*{\Ars}{\textsf{\lower -.48ex\hbox{\rotatebox{-20}{A}}\kern -.3em{rs}}\discretionary{-}{}{\kern -.05em}\TeX\discretionary{-}{}{\kern -.17em}\lower -.357ex\hbox{nica}}
+
+\providecommand\file[1]{\textnormal{\ttfamily#1}}
+\providecommand\meta[1]{\textnormal{\textlangle\textit{#1}\textrangle}}
+\providecommand\amb[1]{\textnormal{\slshape#1}}
+\providecommand\cs[1]{\textnormal{\ttfamily\char92#1}}
+\providecommand\marg[1]{\textnormal{\texttt{\{\meta{#1}\}}}}
+\providecommand\Marg[1]{\textnormal{\ttfamily\{#1\}}}
+\providecommand\pack[1]{\textnormal{\sffamily\slshape#1}}
+\providecommand\prog[1]{\textnormal{\ttfamily\itshape#1}}
+\providecommand\Bambiente[1]{\cs{begin}\Marg{#1}}
+\providecommand\Eambiente[1]{\cs{end}\Marg{#1}}
+
+\providecommand\italian{\selectlanguage{italian}}
+\providecommand\english{\selectlanguage{english}}
+
+\begin{document}\errorcontextlines=100
+\author{\resizebox{30mm}{!}{\includegraphics{./GuITlogo.pdf}}}
+
+\title{\parbox{0.6\textwidth}{\centering\bfseries 
+Instructions for the authors\newline 
+{\italian Istruzioni per gli autori}}}
+
+\date{\makebox[\textwidth]{%
+\llap{April 11, 2022\quad}\hspace{\columnsep}\rlap{\quad11 aprile 2022}}}
+
+\maketitle
+
+
+\begin{paracol}{2}[\section{Instructions\hspace{5.6em}Istruzioni}]\hbadness=5000\english\tolerance=5000
+\GuIT\ publishes a magazine whose title is \Ars. Anybody can publish articles on this magazine provided they deal with the \TeX\ system and typography. Any article submitted to the magazine board shall be peer revised by a Scientific Committee (SC) in order to establish its quality and therefore its right to be published. The author receives the evaluation of the SC that might suggest some variations. The author possibly accepts the SC suggestions and modifies its paper accordingly; then it sends again the paper to the magazine board; at this point the paper shall be revised  and possibly corrected by editorial reviewers; their output arrives again to the editorial board who assembles the magazine for printing and/or for creating a PDF file to be downloaded from the suitable section of the \GuIT\ web site.
+
+\switchcolumn\italian\tolerance=9000
+
+Il \GuIT\ pubblica una rivista dal titolo \Ars. Chiunque può scrivere su questa rivista su argomenti che riguardino il sistema \TeX\ e la tipografia in generale. Gli articoli inviati alla redazione verrano esaminati da un Comitato Scientifico (CS) composto da membri del \GuIT, esperti in queste materie, che ne valutano la pubblicabilità. L'autore riceve la valutazione del CS che potrebbe contenere anche suggerimenti di alcune modifiche. L'autore può accettare i suggerimenti del CS e corrispondentemente modifica il suo articolo che poi invia nuovamente alla redazione. L'articolo viene inviato ai revisori editoriali che possono correggere alcune espressioni ed eliminano i refusi; i file così corretti tornano alla redazione che provvede all'assemblaggio degli articoli per la rivista pronta per la stampa e per la versione PDF da scaricare dal sito web del \GuIT.
+
+\switchcolumn*{Why a ne Kit?}\english
+During year 2020 the \Ars magazine received the formal state of \emph{scientific publication}. The \GuIT\ association decided that its format should change so as to get a specific look in accordance with other scientific publications. The size is not A4 any more, but it changed to B5; typesetting is done on one column; fonts have been chose to be more adapted to the scientific contents; of course the previous Latin Modern fonts may still be used, but the new default fonts have been evaluated to be better suited to the magazine contents. The new chosen fonts are all available with any \TeX system installation.
+
+
+\switchcolumn{Perché un nuovo kit?}\italian
+Nell'anno 2020 la rivista \Ars ha ricevuto la qualifica di \emph{pubblicazione scientifica}. Il \GuIT\ ha deciso di cambiarne il formato per adottarne uno più consono alle riviste scientifiche. Il formato A4 è stato cambiato in B5; La composizione ha luogo so una sola colonna; i font sono stati scelti più adatti ad un contenuto scientifico; naturalmente i precedenti font LaTin Modern potrebbero ancora essere usati, ma si ritiene che i nuovi font siano più adatti al contenuto della rivista. I nuovi font sono tutti disponibili con qualunque installazione del sistema \TeX.
+
+
+\switchcolumn*{\section{What is available}}\english\tolerance=1000
+
+In order to simplify the whole operation, the magazine board has made available the \Ars\ Kit, version 3.x; a zipped set of files to be downloaded from the \GuIT\ web site, that contain all the necessary files for typesetting an article with any of the typesetting programs \pdfLaTeX, \XeLaTeX\ or \LuaLaTeX.
+
+\switchcolumn{\section*{Di cosa si dispone}}\italian
+
+Per semplificare l'operazione la redazione ha reso disponibile il Kit di \Ars, versione 3.x; si ratta di un file compresso, che contiene una raccolta di file, da scaricare dal sito web del \GuIT; essi contengono tutto il necessario per tipocomporre l'articolo con uno dei programmi di composizione \pdfLaTeX, \XeLaTeX\ o \LuaLaTeX.
+
+\switchcolumn*{\subsection{The Kit}}\english
+The Kit contains the following files.
+\begin{enumerate}[font=\small,noitemsep]
+\item \file{arsacro.sty} List of most acro\-nyms that are frequently used in the \TeX\ system literature.
+\item \file{arslogo.sty} Macros for typesetting several \Ars\ logos.
+%\item \file{arstestata.sty} Used only by the editorial board.
+\item \file{arstexnica.bib} A bibliographic database that contains the data of almost all articles published on \Ars.
+\item \file{arstexnica.bst} Bibliography style file to be used by the authors.
+\item \file{arstexnica.cls} Class file to be used by both the authors and the editorial staff.
+%\item \file{guit-2005.sty} A set of macros for typesetting the \GuIT\ logos with different font types.
+\item \file{guit.sty} A set of macros for typesetting the \GuIT\ logo in one font type.\\~
+\item \file{name.tex} See below.
+\item \file{README} Kit basic description in English.\\~
+\item \file{README\_it} Kit basic description in Italian
+\item \file{ArsTeXnicaDoc.pdf} This file of instructions.
+\end{enumerate}
+
+\switchcolumn{\subsection*{Il Kit}}\italian
+
+Il Kit contiene i file seguenti.
+\begin{enumerate}[font=\small,noitemsep]
+\item \file{arsacro.sty} Lista di acronimi usati frequentemente negli scritti realtivi al sistema \TeX.
+\item \file{arslogo.sty} Macro per comporre i loghi di \Ars.
+%\item \file{arstestata.sty} File di uso esclusivo per la Redazione.
+\item \file{arstexnica.bib} Un database bibliografico che contiene i dati di molti degli articoli pubblicati su \Ars. 
+\item \file{arstexnica.bst} Stile bibliografico per uso degli autori.
+\item \file{arstexnica.cls} File di classe per l'uso sia degli autori sia della Redazione.
+%\item \file{guit-2005.sty} Un insieme di macro per comporre il logo del \GuIT\ con diversi tipi font.
+\item \file{guit.sty} Un insieme di macro per comporre il logo del \GuIT\ con un solo tipo di font.
+\item \file{name.tex} Si veda sotto.
+\item \file{README} Descrizione essenziale del Kit in inglese.
+\item \file{README\_it} Descrizione essenziale del Kit in italiano.
+\item \file{ArsTeXnicaDoc.pdf} Questo file di istruzioni.
+\end{enumerate}
+
+\switchcolumn*{\section{File description}}\english
+Here we  describe the Kit files.
+
+
+\switchcolumn{\section*{Descrizione dei file}}\italian
+Qui descriviamo i file del Kit.
+
+\switchcolumn*{\subsection{The \file{README} files}}\english
+Both files \file{README} and \file{README\_it} describe the essential features and usage of each of the kit files; they conform with the other \file{README} files of the \TeX\ system. They are without extension, but they are plain text files, and can be opened by means of any plain text editing program.
+
+
+\switchcolumn{\subsection*{I file \file{README}}}\italian
+I file \file{README} e \file{README\_it} sono file di testo che descrivono sommariamente i file del Kit e il loro uso; benché siano privi di estensione, possono essere aperti con qualunque editor di file di puro testo.
+
+\switchcolumn*{\subsection{The \file{name.tex} file}}\english
+
+The \file{name.tex} file is the main one for typesetting the article; its preamble contains some basic elements depending on the used typesetting engine, but it must be completed with the calls (one per line, please) of the author required packages and the author defined commands. Its \meta{name} must be customised either with the author's name or with any word that is connected to the article contents. The article contents, is to be wrapped within the \texttt{article} environment already specified within the \texttt{document} one. Compared to the previous versions of the Kit, the \file{name-article.tex}, \file{name-command.tex}, and \file{name-package.tex} files are not required any more.
+
+\switchcolumn{\subsection*{Il file \file{name.tex}}}\italian
+
+Il file \file{name.tex} è il file principale usato dall'autore per comporre l'articolo; contiene l'intero preambolo che già dispone degli elementi essenziali che dipendono dal motore di composizione usato, ma che deve essere completato con le chiamate dei pacchetti richiesti dall'autore, nonché dalle definizioni dei suoi comandi. Bisogna cambiargli il \meta{nome} personalizzandolo col nome dell'autore o con un'altra parola legata al contenuto dell'articolo.  Il contenuto dell'articolo deve essere racchiuso nell'ambiente \texttt{article} che è già contenuto nell'ambiente \texttt{document}. Rispetto ai kit precedenti, non ci sono più i file \file{name-article.tex}, \file{name=command.tex} e \file{name-package.tex}.
+.
+\switchcolumn*{\subsection{The article contents}}\english
+\tolerance=3000
+
+Within the \texttt{article} environment the author writes everything should go into the typeset article, any customisation must  be set in the preamble. Other simple article settings should go at the exact position where they are needed; for example, the setting of a language (see below for what concerns languages). In any case you should insert with the \texttt{article} environment the paper title, the information concerning each author and any other information that should appear in the initial article page. A typical situation would be described by the following code:
+\begin{verbatim}
+\begin{article}
+\selectlanguage{english}
+\title[short title]{Full Long 
+    Title}
+\author{Name Surname}
+\address{Address or affiliation}
+\netaddress{%
+    name.surname@server.domain}
+%
+\author{John Smith}
+\address{Somewhere}
+\netaddress{john.smith@uni.edu}
+...
+\end{verbatim}
+Two abstracts in Italian and English should always be present; foreign authors that have no confidence with Italian are allowed to let the Italian abstract empty; somebody in the editorial process will translate the English abstract. On the opposite no one will translate into English the Italian abstract and the author should directly produce the required abstract in English.
+
+\switchcolumn{\subsection*{Il contenuto dell'articolo}}\italian
+
+All'interno dell'ambiente \amb{article} l'autore scrive tutto il testo dell'articolo con pochissime personalizzazioni. Le poche personalizzazioni per aspetti veramente specifici dell'articolo devono essere eseguite all'interno  dell'ambiente; per esempio, l'impostazione della lingua (si veda nel seguito la questione delle lingue). In ogni caso bisogna inserire il titolo, i dati degli autori e ogni altra informazione che riguardi la pagina iniziale dell'articolo. Una situazione tipica è descritta dal codice seguente:
+\begin{verbatim}
+
+\begin{article}
+\selectlanguage{english}
+\title[short title]{Full Long 
+   Title}
+\author{Name Surname}
+\address{Address or affiliation}
+\netaddress{%
+    name.surname@server.domain}
+%
+\author{John Smith}
+\address{Somewhere}
+\netaddress{john.smith@uni.edu}
+...
+\end{verbatim}
+Due sommari, rispettivamente nelle lingue italiana e inglese, devono sempre essere presenti; gli autori stranieri che non hanno confidenza con l'italiano sono autorizzati a lasciare in bianco il sommario in italiano; la Redazione si occuperà di tradurre in italiano il sommario inglese. Al contrario nessuno tradurrà in inglese il sommario in italiano e l'autore è tenuto a comporselo da solo.
+
+\switchcolumn*{\subsection*{Some useful macros}}\english
+
+Some useful macros are defined by the class file in such a way that they ease the author's work in writing about the \TeX\ system; some such macros  are the following; you can see other ones if you examine the code of \file{arstexnica.cls}.
+\begin{enumerate}[noitemsep]
+\item \cs{pkgname} is used to name a package.
+%
+\item \cs{clsname} is used to name a class file.
+%
+\item \cs{optname} is used to name an option.
+%
+\item \cs{envname} is used to name an environment with a sans serif font.
+%
+\item \cs{amb} is used to name an environment with an italic font.
+%
+\item \cs{cmdname} is used to name a command or a macro.
+%
+\item \cs{meta} is used to indicate a named place holder for an argument in the syntax of a macro.
+%
+\item \cs{marg} is used to specify a mandatory argument in the syntax of a macro; it uses the \cs{meta} command.
+%
+\item \cs{oarg} is used to specify an optional argument in the syntax of a macro; it uses the \cs{meta} command.
+%
+\item \cs{Arg} is used to show a specific mandatory argument in an example of usage of a macro.
+%
+\item \cs{prog} is used to name a specific executable program.
+%
+\item \cs{file} is used to name a specific file.
+%
+\end{enumerate}
+Do not redefine these commands that are already available; if you find too long the names of the first five commands, you can create in the preamble some aliases, for example:
+\begin{verbatim}
+\let\pack\pkgname
+\let\class\clsname
+...
+\end{verbatim} 
+If you want to use similar commands with a different output, customise your new macro names with your uppercase initials. In any case prefer the \cs{providecommand} macro to define new macros; should the macro to be already defined, this command skips everything and does not modify the pre-existing macro.
+
+In order to specify further languages, other than English and Italian, consult the documentation of \pack{babel} and/or \pack{polyglossia}, since each one has its own special commands to specify further languages that were not mentioned in the initial settings.
+
+\switchcolumn{\subsection*{Alcune macro utili}}\italian
+
+Sono disponibili diverse macro che si usano spesso quando si parla del sistema \TeX; alcune sono le seguenti; se ne possono trovare altre leggendo il codice contenuto dnl file \file{arstexnica.cls}.\\~
+\begin{enumerate}[noitemsep]
+\item \cs{pkgname} serve per citare un pacchetto.
+%
+\item \cs{clsname} serve per citare una classe.
+%
+\item \cs{optname} serve per citare un'opzione.
+%
+\item \cs{envname} serve per citare un ambiente con un carattere lineare.
+%
+\item \cs{amb} serve per citare un ambiente con un carattere corsivo.
+%
+\item \cs{cmdname} serve per citare un comando o una macro.
+%
+\item \cs{meta} serve per indicare un argomento di una macro nella descrizione della sua sintassi.
+%
+\item \cs{marg} serve per specificare un argomento obbligatorio nella sintassi di una macro; usa il comando \cs{meta}.
+%
+\item \cs{oarg} serve per specificare un argomento facoltativo nella sintassi di una macro; usa il comando \cs{meta}.
+%
+\item \cs{Arg} serve per mostrare uno specifico argomento obbligatorio quando si espone un esempio d'uso di una data macro.
+%
+\item \cs{prog} serve per indicare il nome di un programma eseguibile.
+%
+\item \cs{file} serve per citare un file specifico.
+%
+\end{enumerate}
+Si eviti di ridefinire questi comandi già disponibili.  Se le prime cinque macro sembrano troppo lunghe, si creino dei comandi alias; per esempio:
+\begin{verbatim}
+\let\pack\pkgname
+\let\class\clsname
+...
+\end{verbatim} 
+Se si desidera definire comandi simili che producano un risultato diverso, se ne personalizzi il nome con le proprie iniziali maiuscole.  In ogni caso per la definizione si preferisca usare il comando \cs{providecommand}; se la macro che si vorrebbe definire esistesse già, questo comando non farebbe nulla e lascerebbe in vigore la definizione preesistente.
+
+Per specificare ulteriori lingue, oltre all'italiano e all'inglese, si consultino le documentazioni di \pack{babel} e/o \pack{polyglossia} perché ciascuno  dispone di comandi particolari per specificare ulteriori lingue che non siano state indicate nelle impostazioni iniziali.
+
+\switchcolumn*{\subsection{Other languages}}\english
+It has already ben explained the fact the Italian is preset to be the main language, and that English is already defined but it is preset as a secondary language; it has also been specified that if a paper in English is being written , this language should receive a global setting by using  \cs{selectlanguage}\Marg{english} at the very beginning or the \amb{article} environment. But what about needing to typeset quoted text in a different language from English and Italian? Two different approaches are needed in order to distinguish between \pdfLaTeX, that uses the \pack{babel} package as the language handler, compared to \XeLaTeX\ or \LuaLaTeX, that both use the \pack{polyglossia} language handler.
+\begin{description}[noitemsep]
+\item[\pack{babel}] Recently this package was upgraded in order to offer some functionality that is normal with \pack{polyglossia}; it has several commands to do so and it is necessary to consult the \pack{babel} package documentation.
+
+Alternatively, in order to avoid all this, we warmly suggest to switch to \XeLaTeX\ or, preferably, to \LuaLaTeX, that are much simpler to use for this task. 
+
+%
+\item[\pack{polyglossia}] It suffices to specify\\ \cs{setotherlanguage}\marg{other language} at the beginning of the \amb{article} environment; then this other language may be selected with any of the language changing commands (for single words or short sentences) or environments (for longer texts). We recall here also the environment \amb{other language} with which not only the \meta{other language} language is selected, but also another font with another alphabet can be selected provided that \cs{newfontfamily} has been used in order to associate another font family to the language. See the documentation of \pack{polyglossia}.
+%
+\end{description}
+
+\switchcolumn{\subsection*{Altre lingue}}\italian
+È già stato spiegato il fatto che la lingua italiana è quella predefinita come principale e che l'inglese è la lingua secondaria; è già stato spiegato che se si vuole scrivere un articolo in inglese, bisogna impostare questa lingua in modo globale all'inizio dell'ambiente \amb{article} usando la specifica \cs{selectlanguage}\Marg{english}. Ma che cosa bisogna fare per comporre citazioni in altre lingue diverse dall'italiano e dall'inglese? Ci sono due approcci diversi a seconda che si usi il programma \pdfLaTeX, che usa \pack{babel} come gestore delle lingue, rispetto a quando si usano \XeLaTeX\ o \LuaLaTeX, i quali si servono di \pack{polyglossia} come gestore delle lingue.
+\begin{description}[noitemsep]
+\item[{\pack{babel}}] Recentemente \pack{babel} è stato esteso per fornire soluzioni a questo problema; tuttavia senza consultare i dettagli nella documentazione di \pack{babel} la cosa rimane più complessa rispetto a quanto si potrebbe fare con \pack{polyglossia}.
+
+Perciò si suggerisce caldamente in questi casi di passare all'uso di \XeLaTeX o, preferibilmente, di \LuaLaTeX, che sono molto più facili da usare per questo scopo. 
+%
+\item[{\pack{polyglossia}}] Infatti con questo pacchetto è sufficiente specificare, all'inizio dell'ambiente \amb{article}, \cs{setotherlanguage}\marg{altra lingua}; dopo di che quest'altra lingua può essere selezionata con uno qualsiasi dei comandi per cambiare lingua (per singole parole o brevi frasi) o con gli ambienti (per testi più lunghi). Si richiama l'ambiente \amb{altra lingua} che non solo seleziona la lingua \meta{altra lingua}, ma permette anche di usare un font con un alfabeto specifico legato a quella lingua purché si sia usato il comando \cs{newfontfamily} in modo corretto. Si veda la documentazione di \pack{polyglossia}.
+%
+\end{description}
+
+\switchcolumn*{\subsection{First paragraph indentation}}\english
+The first paragraph of each section by default is not indented; if you need to indent all such first paragraphs and are using \pdfLaTeX, you should load the \pack{indentfirst} that makes a global setting to achieve this functionality, which applies to all languages. If you use \LuaLaTeX or \XeLaTeX, \pack{polyglosia} allows to specify this setting \emph{per language}; you have to enter into the preamble the following setting:\\ \cs{PolyglossiaSetup}\marg{language}\texttt{\%}\\{}\null\qquad
+\Marg{indentfirst=true}. 
+
+\switchcolumn{\subsection*{Rientro del primo capoverso}}\italian
+Il primo capoverso di ogni sezione di default non è rientrato; se fosse necessario rientrare tutti questi primi capoversi e si sta componendo con \pdfLaTeX, si deve caricare il pacchetto \pack{indentfirst} che rende questa impostazione globale e valida per tutte le lingue. Se si compone con \LuaLaTeX o \XeLaTeX, \pack{polyglossia} consente di specificare questa impostazione per ciascuna lingua; bisogna aggiungere nel preambolo la seguente impostazione: \cs{PolyglossiaSetup}\marg{language}\texttt{\%}\\{}\null\qquad\Marg{indentfirst=true}. 
+
+\switchcolumn*{\section{The \file{arstexcnica} files}}\english 
+The Kit contains other files with the name \texttt{arstexnica} but with different extensions; they are the following.
+\begin{enumerate}[noitemsep]
+\item \file{arstexnica.bib} contains virtually all the bibliographical records of the articles already published by \Ars. It is being updated regularly but the papers published in the past few issues of the magazine may still be missing. Nevertheless it is a real help for listing past articles in one's Reference list and for the various types of citations.
+Users save a lot of time if they copy selected records from this file and paste them in their \file{.bib} file. Needless to say, authors of any article should name their bibliography files the same as their main file; therefore an article contained in a \file{JohnSmith.tex} main file, should name their bibliography file as \file{JohnSmith.bib}.\\~
+%
+\item \file{arstexnica.bst} is a bibliography style explicitly designed for \Ars. It relies on the \pack{natbib} package, which is preloaded by the main file; therefore the user does not need to do anything but running \prog{bibtex} when the paper is almost ready and the paper \file{.bib} is complete. Since the citation style is of the form “author-year”, two or three compilations after running \prog{bibtex} might be necessary.
+
+The \pack{natbib} package offers several types of citation commands so as to print the citations as a parenthesised string “autor year”, or as the author name followed by the parenthesised year, or just the author, or just the year,\dots\ The user should read the \pack{natbib} documentation to know the details and the specific commands to use.
+
+It is better to recall that the bibliography database \emph{must} be processed with \prog{bibtex}, \emph{not} with \prog{biber}.\\~
+%
+\item \file{arstexnica.cls} is the the document class file; it contains also several parts to be used only by the editorial staff, and the author should not care abut them. Effectively this file does not add much to what is available with the \file{article.cls} class; but it does a lot for the graphical style of the pages and on the necessary instruments that allow the staff to assemble every full issue of the magazine. The few environments and commands that have been added for the author usage are mostly described below.
+
+It is worth noting that the class may be used to typeset with any of the three \LaTeX\ based typesetting programs: \pdfLaTeX, \XeLaTeX, and \LuaLaTeX; documents typeset with \ConTeXt\ require too much work to be assembled in the full magazine issue, and authors should not ask the staff permission to use anything different from the \LaTeX\ based programs.
+
+The main file \file{name.tex} contains the necessary tests to verify which program is being used to typeset the paper and to set all settings in a coherent way.
+%
+\end{enumerate}
+
+\switchcolumn{\section*{I file \file{arstexnica}}}\italian
+Il Kit contiene altri file col nome \texttt{arstexnica} ma con estensioni diverse; essi sono i seguenti.\\~
+\begin{enumerate}[noitemsep]
+\item \file{arstexnica.bib} è un database bibliografico che contiene i record di quasi tutti gli articoli pubblicati su \Ars. Viene aggiornato regolarmente ma gli articoli pubblicati negli ultimi numeri della rivista potrebbero mancare. Ciò nonostante si tratta di un aiuto sostanziale per riportare i riferimenti di quegli articoli nella propria bibliografia. L'utente può semplicemente copiare da questo file i record che vuole aggiungere al suo file \file{.bib} così da risparmiare molto tempo.
+Merita sottolineare che il database bibliografico deve avere lo stesso nome del file dell'articolo: se questo si chiama \file{JohnSmith.tex} quello si deve chiamare \file{JohnSmith.bib}.\\~
+%
+\item \file{arstexnica.bst} è un file che descrive lo stile bibliografico espressamente sviluppato per \Ars. Si basa sul pacchetto \pack{natbib}, che è già caricato nel preambolo del file principale \file{nome.tex}. Perciò l'utente, composto il proprio file \file{.bib} non deve far altro che lanciare il programma \prog{bibtex}. Poiché il tipo di citazione è del tipo “autore-anno”, è possibile che dopo aver eseguito \prog{bibtex} sia necessario ricompilare il documento due o tre volte.
+
+Il pacchetto \pack{natbib} mette a disposizione diversi comandi di citazione per ottenere diverse forme mediante stringhe “autore anno”, o il nome dell'autore seguito dall'anno fra parentesi, oppure solo il nome dell'autore, o solo l'anno,\dots\ L'utente dovrebbe leggere la documentazione di \pack{natbib} per conoscere tutti i dettagli e per scegliere quali comandi usare.
+
+È opportuno ricordare che il database bibliografico \emph{deve} essere elaborato con \prog{bibtex} e \emph{non} con \prog{biber}.
+%
+\item \file{arstexnica.cls} è il file di classe; esso contiene anche diverse parti che vengono usate solo dalla Redazione e l'autore non deve preoccuparsene. Effettivamente questo file di classe non aggiunge molto alla classe \file{article.cls}; ma fa molto per lo stile grafico  delle pagine, e fornisce tutti gli strumenti necessari alla Redazione per impaginare la rivista completa. I pochi ambienti e comandi aggiunti per l'uso da parte degli autori sono per lo più descritti nel seguito.
+
+Merita sottolineare che la classe funziona con i tre programmi di composizione basati su \LaTeX: \pdfLaTeX, \XeLaTeX\ e \LuaLaTeX; i documenti composti con \ConTeXt\ richiedono troppo lavoro per essere inseriti nella rivista; perciò gli autori si astengano dal chiedere alla Redazione il permesso di scrivere l'articolo con qualsiasi altro programma non basato su \LaTeX.\\~
+
+Il file \file{nome.tex} contiene tutti i test necessari per verificare con quale programma l'articolo è composto e per impostare il necessario in modo coerente.
+%
+\end{enumerate}
+
+\switchcolumn*{\subsection{The \GuIT\ logo}}\english
+The kit contains also a file \file{guit.sty} that provides for the name of the \GuIT\ association the \GuIT\ logo and other logotypes where the \GuIT\ logo appears.. 
+Probably the author is interested mainly in the simple command \cs{GuIT} that prints as \GuIT.
+
+\switchcolumn{\subsection*{Il logo \GuIT}}\italian
+Il Kit contiene il file \file{guit,sty}  che produce il nome dell'associazione \GuIT, oltre a diversi altri logotipi dove compare anche il logo \GuIT. 
+Probabilmente l'autore è interessato principalmente al semplice comando \cs{GuIT} che compone il logo \GuIT.
+
+
+\switchcolumn*{\section{Pictures and other files}}\english
+Of course the document whole file set should be completed with the image files (remember: only PDF, EPS, PNG, and JPG formats) and any other non standard \file{.tex} or \file{.sty}, or \file{.def},\dots\ files that are being used for the correct compilation of the paper.
+
+Last but not least the very important \file{.bib} file containing the records of all the references cited in the paper.\\~
+
+The whole set should be packed in a \file{.zip} file or any of the other compressed formats common with various operating systems; up to now the formats \file{.zip} and \file{.tar.gz} have proven to be reliable.
+
+\switchcolumn{\section*{Immagini e altri file}}\italian
+
+Naturalmente l'intero insieme di file del documento deve essere completato con quelli delle immagini (ricordarsi: solo nei formati PDF, EPS, PNG e JPG), oltre a quelli non standard nei formati \file{.tex}, \file{.sty}, \file{.def},\dots\ necessari per la compilazione del documento.
+
+Ultimo, ma non meno importante il file \file{.bib} che contiene il database bibliografico contenente tutti i riferimenti citati nel documento.
+
+L'insieme completo va impacchettato in formato compresso in un file \file{.zip} oppure in uno degli altri archivi compressi comuni nei vari sistemi operativi; finora sono risultati affidabili i file \file{.zip} e \file{.tar.gz}.
+
+\switchcolumn*{\section{Bibliography}}\english
+The bibliography must be set with the style defined by file \file{arstexnica.bst} handled by package \pack{natbib}. The template already contains the necessary commands to select this bibliography style and to typeset the bibliography after program \prog{bibtex} has been executed; notice: \prog{bibtex}, \emph{not} \prog{biber}.
+
+Therefore the authors need just to prepare a file \file{.bib} (typically  with the same name as the main file but with the \texttt{.bib} extension), the name of which must be entered as the argument of command \cs{bibliography} that is next to the end of the main file \file{name.tex} just before \Eambiente{article}.
+
+Lot of attention must be paid to the creation of the bibliography, and it must be remembered that the style required by \Ars\ is of the kind “author-year”; this implies that every record of the \file{.bib} file must contain the \texttt{Year} field set to contain the document publication year. Furthermore if the bibliographic record does not contain either the \texttt{Author} or the \texttt{Editor} field, in their place the \texttt{Key} field is used; this field might contain, for example, the name of the institution that produced the document. These pieces of information are useful for documents on line: if it is impossible to deduce the year of publication, use the date of the last time you fetched it, something you should do at least to verify that its url is still active; often it is not, therefore it would be totally useless to cite such a document.
+
+Every document should be assigned a suitable category; be sure to define all the \emph{mandatory} information for that category; for example the category \texttt{@Book} requires filling the \texttt{Publisher} field; the category \texttt{@Article} requires filling the \texttt{Journal} field; and so on. If you don't remember which fields are mandatory, which are optional, and which are ignored, read the \prog{bibtex} documentation by means of \texttt{texdoc bibtex}: on pages 8–11 you find the relevant information. Notice also that in some fields uppercase letters are turned to lowercase, unless they are surrounded by a pair of matching braces; this implies that if in a field you insert a macro whose name contains uppercase letters without enclosing it in matching braces, while typesetting the document you receive an error message of “unknown control sequence”. Moreover \Ars\ requires that no all-caps strings are used in title fields.
+
+If for some documents it is difficult to assign a category, remember that there exist many categories, such as \texttt{@manual}, \texttt{@Booklet}, and \texttt{@Misc} that may solve your problem. Furthermore all categories accept the optional field \texttt{Note} where, if you like, you may enter even the url, after verification that the document url is correct; in this field \texttt{Note} a possible url must be entered as the argument of the command~\cs{url}.
+
+For in-line documents it is possible to use the field \texttt{Url}; but in this field the possible url must be entered as such, \emph{not as the argument of command} \cs{url}; forgetting this detail may mean that a cryptic error message is issued.
+
+\switchcolumn{\section*{Bibliografia}}\italian
+
+La bibliografia viene composta con lo stile \file{arstexnica.bst}  gestito dal pacchetto \pack{natbib}. Il template contiene già i comandi necessari per selezionare questo stile e per comporre la bibliografia dopo che sia stato eseguito il programma \prog{bibtex}; attenzione: \prog{bibtex} \emph{non} \prog{biber}.
+
+Il compito degli autori consiste quindi nel creare un file \file{.bib} (tipicamente con lo stesso nome del suo main file e l'estensione \texttt{.bib}) il cui nome va inserito nell'argomento del comando \cs{bibliography} che si trova alla fine del file principale \file{nome.tex} appena prima di \Eambiente{article}.
+
+La bibliografia va composta con molta attenzione, ricordando che lo stile di \Ars, è del tipo “autore-anno”; questo implica che ogni record del database \file{.bib} contenga il campo \texttt{Year} con il valore numerico dell'anno di pubblicazione del documento. Inoltre se un record bibliografico non contiene il campo \texttt{Author} o il campo \texttt{Editor}, si usi al loro posto il campo \texttt{Key} contenente, per esempio, il nome dell'ente che ha prodotto il documento. Queste informazioni servono anche per i documenti che si trovano in rete; se non si trova la data di pubblicazione del documento in rete, si usi la data dell'ultimo accesso eseguito al documento, se non altro per verificare che il suo URL sia attivo; spesso non lo è, per cui è del tutto inutile citare un tal documento in rete.\\~
+
+Ogni documento sia caratterizzato da una tipologia adatta e si curi di fornire tutti i dati \emph{obbligatori} richiesti da quella tipologia; per esempio per la tipologia \texttt{@Book} si richiede il completamento del campo \texttt{Publisher}; la tipologia \texttt{@Article} richiede il completamento del campo \texttt{Journal}; eccetera. Se non ci si ricorda quali campi siano obbligatori e quali facoltativi si consulti la documentazione di \prog{bibtex} con \texttt{texdoc bibtex} alle pagine 8-11. Si noti anche che in molti campi le maiuscole vengono trasformate in minuscole, a meno che non siano racchiuse fra graffe; quindi se in qualche campo si scrivono una o più macro che contengano una maiuscola senza usare le graffe, durante la compilazione si riceverà il messaggio di errore “Undefined control sequence”.
+Nelle bibliografie di \Ars\ è vietato usare titoli o altre stringhe formate solo da lettere maiuscole.\\~
+
+Se per alcuni documenti è difficile definire la tipologia, ci si ricordi che ci sono molte categorie, come \texttt{@Manual}, \texttt{@Booklet} e \texttt{@Misc}, che possono risolvere molti problemi. Inoltre tutte le tipologie accettano il campo \texttt{Note}, nel quale, volendo si può scrivere, dopo attenta verifica che l'url di un documento elettronico sia valido e attivo, nel campo \texttt{Note} l'eventuale url, che va inserito come argomento del comando \cs{url}.
+
+Per i documenti in rete si può usare il campo \texttt{Url}; in questo campo però, l'url va inserito da solo, \emph{senza l'intermediario del comando} \cs{url}; dimenticare questo punto vuol dire ricevere errori fatali che portano alla fine anormale del programma di composizione.
+
+
+\switchcolumn*{\section{Conclusion}}\english
+
+If the instructions contained in this document are carefully followed the article files form a set that gives the least work to the editorial staff and let them handle the whole document so that no modifications are necessary, thus avoiding the risk of error prone actions.
+
+\switchcolumn{\section*{Conclusioni}}\italian
+
+Se le istruzioni contenute in questo documento sono seguite con attenzione i file del documento formeranno un insieme che darà il minimo di lavoro alla Redazione evitando quindi la possibilità di introdurre involontariamente qualsiasi errore.
+
+
+\end{paracol}
+\end{document}
+
+
+
+\switchcolumn*{\section{}}\english
+\switchcolumn{\section*{}}\italian
+
+\switchcolumn*{\subsection{}}\english
+\switchcolumn{\subsection*{}}\italian
+
+
+
+
+

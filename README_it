@@ -1,4 +1,4 @@
-This is the README that comes along the ArsTeXnica Author's kit version 2.6.2.
+This is the README that comes along the ArsTeXnica Author's kit version 3.0.0.
 It is released under the LPPL 1.3c or later.
 Copyright (c) 2011-2021 Gianluca Pignalberi and GuIT
 ----------------------------------------------------------------------------
@@ -10,15 +10,12 @@ Questo kit per gli autori di ArsTeXnica contiene i seguenti file:
 * arstexnica.bst (stile bibliografico; personalizzazione di natbib);
 * arstexnica.cls (classe della rivista);
 * guit.sty (comandi per comporre nomi e loghi relativi al GuIT e ArsTeXnica);
-* name-article.tex (vedi sotto);
-* name-command.tex (vedi sotto);
-* name-package.tex (vedi sotto);
 * name.tex (vedi sotto);
 * README (traduzione inglese di questo file);
 * README_it (questo file).
 
-I primi cinque file sono necessari (arstexnica.* sono fondamentali), e i file
-name*.tex sono quelli che l'autore modificherà in base alle proprie esigenze.
+I primi cinque file sono necessari (arstexnica.* sono fondamentali), e il file
+name.tex è quello che l'autore modificherà in base alle proprie esigenze.
 
 * <name>.tex: è il documento master, che contiene il preambolo e i package
 	necessari alla compilazione degli articoli per ArsTeXnica. 
@@ -31,31 +28,6 @@ name*.tex sono quelli che l'autore modificherà in base alle proprie esigenze.
 	specifici per il contenuto del vostro articolo.
 	Dovete invece modificare il <nome> del file, che ora deve essere
 	personalizzato.
-
-* <name>-article.tex: qui va solo il testo dell'articolo; nessuna inclusione di
-	pacchetti, nessun comando. Se vi attenete alle specifiche richieste ci
-	aiutate a mettere a punto lo script di raccolta degli articoli e 
-	generazione automatica del numero in lavorazione. Cambiate <name> in
-	base a quello del master.
-
-* <name>-package.tex: mettete qui i vari pacchetti che caricate. È 
-	consigliabile scrivere qui le eventuali personalizzazioni del pacchetto
-	listings. Al solito, <name> deve essere uguale a quello del master.
-
-* <name>-command.tex: qui vanno scritte tutte e sole le definizioni dei 
-	comandi personali usati nell'articolo. Due consigli: non definite un 
-	comando se non è strettamente necessario. Sovente si trova lo stesso 
-	comando (magari con lo stesso nome) nei pacchetti già disponibili; 
-	il fatto che è stato testato da molti utenti in molte situazioni lo 
-	rende più stabile.
-	Diversi autori tendono a usare gli stessi nomi per i loro comandi (ad
-	esempio, \progname); questo porta a errori di compilazione, o a 
-	inconsistenza dei risultati. Prendete l'abitudine di personalizzare i 
-	vostri comandi, per esempio includendo nel nome del comando le vostre 
-	iniziali maiuscole: ad esempio, \GPprogname potrebbe essere il nome
-	della mia versione del comando. Questo non elimina, ma riduce 
-	moltissimo la probabilità di conflitti tra i nomi dei comandi definiti
-	da diversi autori. 
 
 I pacchetti e la classe necessari sono:
 
