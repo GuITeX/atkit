@@ -113,7 +113,7 @@
 \RequirePackage{titling}
 \newcounter{title}
 \setcounter{title}{0}
-\newcommand{\theHtitle}{\arabic{title}}
+\providecommand{\theHtitle}{\arabic{title}}
 \def\title@toc@entry#1{%
   \if@hyperref
   \xdef\@currentHref{title.\theHtitle}%
@@ -150,7 +150,7 @@
   \stepcounter{AT@temp}%
   \ifnum\c@AT@temp=1\relax\else%
     \ifnum\c@AT@temp=\c@AT@author@cnt%
-      \space and\space%
+      \space e\space%
     \else%
       ,\space
     \fi%
@@ -204,14 +204,15 @@
   }%
   \AT@authors@hook{#1}%
 }
-\def\AT@authors@hook#1{}
+\def\AT@authors@hook{}
 \newcommand\address[1]{%
-  \g@addto@macro\AT@addresses{%
-    \AT@affil@sep\textsc{#1}%
+  \ifblank{#1}{}{%
+    \g@addto@macro\AT@addresses{%
+      \AT@affil@sep\textsc{#1}%
+    }%
   }%
 }
-\newcommand\netaddress[1]{\g@addto@macro\AT@addresses{\AT@email@sep\url{#1}}}
-
+\newcommand\netaddress[1]{\ifblank{#1}{}{\g@addto@macro\AT@addresses{\AT@email@sep\url{#1}}}}
 \newcommand{\hangfrom}[1]{%
   \setbox\@tempboxa\hbox{{#1}}%
   \hangindent \wd\@tempboxa\noindent\box\@tempboxa}
