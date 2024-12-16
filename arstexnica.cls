@@ -204,7 +204,7 @@
   }%
   \AT@authors@hook{#1}%
 }
-\def\AT@authors@hook{}
+\def\AT@authors@hook#1{}
 \newcommand\address[1]{%
   \ifblank{#1}{}{%
     \g@addto@macro\AT@addresses{%
