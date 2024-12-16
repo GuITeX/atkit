@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{arstexnica}[2021/05/23 v1.0.0 Document class for Ars TeXnica]
+\ProvidesClass{arstexnica}[2024/12/15 v1.0.1 Document class for Ars TeXnica]
 \RequirePackage{guit}
 \RequirePackage{currfile}
 \RequirePackage{iftex}
